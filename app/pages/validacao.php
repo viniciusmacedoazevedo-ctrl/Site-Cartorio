@@ -9,9 +9,10 @@
       <h2>Como conferir a autenticidade</h2>
       <ol class="passos-lista">
         <li><strong>Pelo QR Code:</strong> aponte a câmera do celular para o QR Code do selo impresso no documento e abra o link da consulta do Tribunal de Justiça. Confira se os dados exibidos correspondem ao documento.</li>
-        <li><strong>Pelo código do selo:</strong> use o código impresso ao lado do QR Code na consulta pública do selo digital, no <a href="<?= e(cartorio('corregedoria_url')) ?>" rel="noopener" target="_blank">portal do extrajudicial da Corregedoria do RN</a>.</li>
+        <li><strong>Pelo código do selo:</strong> use o código impresso ao lado do QR Code na <a href="<?= e(cartorio('selo_consulta_url')) ?>" rel="noopener" target="_blank">consulta pública do selo digital do TJRN</a>.</li>
         <li><strong>Com o cartório:</strong> se os dados não conferirem ou você tiver dúvida, <a href="/contato?assunto=<?= rawurlencode('Conferência de selo ou certidão') ?>">fale conosco</a> informando o código do selo. Suspeita de fraude: <a href="mailto:<?= e(cartorio('emails.compliance')) ?>"><?= e(cartorio('emails.compliance')) ?></a>.</li>
       </ol>
+      <p><a class="botao botao-primario" href="<?= e(cartorio('selo_consulta_url')) ?>" rel="noopener" target="_blank">Consultar selo no site do TJRN</a></p>
       <p>Certidões eletrônicas emitidas pelas centrais nacionais trazem seu próprio código de verificação, conferido no site da central que a emitiu.</p>
 
       <h2 id="centrais">Centrais nacionais</h2>

@@ -117,13 +117,12 @@ Token contra envio falso (CSRF), campo-armadilha e tempo mínimo contra robôs, 
 
 ## Para revisar antes de publicar
 
-- **CNS 09.545-5** em `app/content/cartorio.php`: confirmar no Justiça Aberta do CNJ.
-- **Consulta pública do selo digital do TJRN**: a página `/validacao` aponta para o portal do extrajudicial da Corregedoria. Se houver um endereço direto de consulta de selos, troque `corregedoria_url` (ou acrescente um link) em `app/content/cartorio.php`.
-- **Rubricas da Transparência** em `app/content/transparencia.php` (nomes dos fundos e se ISS e despesas devem aparecer).
+Confirmado pelo cartório em 15/10/2026: CNS 09.545-5, consulta de selos em https://selodigital.tjrn.jus.br/siex (`selo_consulta_url`), ISS e despesas na Transparência, prazo de guarda de 5 anos, texto de cookies e de conformidade. Foto da fachada tratada em `public/assets/img/fachada.jpg`.
 
-- Descrições, documentos obrigatórios e gratuidades de cada serviço em `app/content/servicos.php` (conferir com a prática da serventia).
-- Prazo de guarda de 5 anos no Aviso de Privacidade (`app/views/texto-aviso.php`), a confirmar pela notária e pelo DPO.
+- **Nome por extenso do FUNAF** em `app/content/transparencia.php` (hoje aparece só a sigla; confirmar com o contador). FDJ, FRMP e FCRCPN seguem o nome das leis estaduais.
+- Descrições, documentos obrigatórios e gratuidades de cada serviço em `app/content/servicos.php` (revisar quando o cartório puder).
 - O brasão foi extraído do documento enviado (128 px). Se houver uma versão em alta resolução, substitua `public/assets/img/brasao.png`.
+- DNS do domínio ainda não aponta para o servidor (necessário para o HTTPS).
 
 ## Teste local (sem MySQL)
 

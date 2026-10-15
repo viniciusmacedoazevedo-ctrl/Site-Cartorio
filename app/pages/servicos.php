@@ -9,11 +9,14 @@ view('header', ['titulo' => 'Carta de Serviços', 'descricao' => 'Carta de Servi
       <p class="lead">O que cada serviço faz e quais documentos levar. Traga os originais ou cópias autenticadas; conforme o caso, o cartório pode pedir outros documentos previstos em lei.</p>
       <p class="pagina-apoio">Valores na <a href="/emolumentos">tabela de emolumentos</a>. Atendimento presencial <?= e(mb_strtolower(cartorio('horario'))) ?>.</p>
     </div>
-    <nav class="indice" aria-label="Atribuições">
+    <div class="carta-layout">
+    <nav class="indice carta-indice" aria-label="Atribuições">
       <?php foreach ($servicos as $i => $g): ?>
         <a href="#area-<?= $i ?>"><?= e($g['area']) ?></a>
       <?php endforeach; ?>
+      <a class="carta-indice-pedido" href="/pedido">Fazer pedido ou agendar</a>
     </nav>
+    <div class="carta-corpo">
     <?php foreach ($servicos as $i => $g): ?>
       <section class="servico-area" id="area-<?= $i ?>" aria-labelledby="area-t-<?= $i ?>">
         <header>
@@ -40,6 +43,8 @@ view('header', ['titulo' => 'Carta de Serviços', 'descricao' => 'Carta de Servi
         <?php endforeach; ?>
       </section>
     <?php endforeach; ?>
+    </div>
+    </div>
   </div>
 </main>
 <?php view('footer'); ?>

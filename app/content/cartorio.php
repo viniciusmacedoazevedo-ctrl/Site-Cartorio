@@ -6,7 +6,7 @@ return [
     'titular'      => 'Eliane Viana de Sousa',
     'titular_cargo'=> 'Notária e Registradora',
     'cnpj'         => '08.472.037/0001-24',
-    'cns'          => '09.545-5',   // Código Nacional da Serventia (CNJ) – confirmar no Justiça Aberta
+    'cns'          => '09.545-5',   // Código Nacional da Serventia (CNJ)
     'responsavel_tipo' => 'Titular da delegação',
     'atribuicoes' => [
         'Tabelionato de Notas',
@@ -43,6 +43,7 @@ return [
         'tamanho' => '509 KB',
     ],
     'corregedoria_url' => 'https://corregedoria.tjrn.jus.br/index.php/extrajudicial',
+    'selo_consulta_url' => 'https://selodigital.tjrn.jus.br/siex',   // consulta pública do selo digital (TJRN)
     'centrais' => [
         ['e-Notariado', 'https://www.e-notariado.org.br/', 'Atos notariais eletrônicos: escrituras e procurações por videoconferência, com assinatura digital.'],
         ['CENSEC', 'https://censec.org.br/', 'Central Notarial de Serviços Eletrônicos Compartilhados: busca de testamentos, procurações e escrituras.'],
@@ -59,7 +60,7 @@ return [
     ],
     // Foto da abertura da página inicial (opcional). Use uma foto real da serventia,
     // horizontal (16:9), em public/assets/img/. Ex.: '/assets/img/fachada.jpg'. null = fundo verde.
-    'foto_abertura' => null,
+    'foto_abertura' => '/assets/img/fachada.jpg',
     'politicas_atualizadas_em' => '14 de outubro de 2026',   // aviso de privacidade e termos de uso
     'cookies_atualizada_em'    => '15 de outubro de 2026',   // política de cookies
 ];

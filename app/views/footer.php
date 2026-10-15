@@ -22,26 +22,39 @@
       <p class="rodape-pessoa">Solicitação dos direitos dos titulares<br><a href="mailto:<?= e($em['lgpd']) ?>"><?= e($em['lgpd']) ?></a></p>
       <p class="rodape-pessoa">Linha de apoio à ética e denúncia de fraudes<br><a href="mailto:<?= e($em['compliance']) ?>"><?= e($em['compliance']) ?></a><br><?= e(cartorio('etica_telefone')) ?></p>
     </section>
-    <nav class="rodape-bloco rodape-transparencia" aria-labelledby="rod-links">
-      <h2 id="rod-links">Transparência</h2>
-      <ul>
-        <li><a href="/transparencia">Transparência</a></li>
-        <li><a href="/emolumentos">Emolumentos e gratuidades</a></li>
-        <li><a href="<?= e(cartorio('tabela_custas.arquivo')) ?>" download>Tabela de custas 2026 (PDF)</a></li>
-        <li><a href="/serventia">A serventia</a></li>
-        <li><a href="/validacao">Validar selo</a></li>
-        <li><a href="/validacao#centrais">Centrais nacionais</a></li>
-        <li><a href="/conformidade">Conformidade com o CNJ</a></li>
-        <li><a href="/privacidade#aviso" data-dialogo="aviso-privacidade">Aviso de privacidade</a></li>
-        <li><a href="/privacidade#direitos" data-dialogo="direitos-titulares">Direitos dos titulares</a></li>
-        <li><a href="/termos">Termos de uso</a></li>
-        <li><a href="/cookies">Política de cookies</a></li>
-        <li><a href="/acessibilidade">Acessibilidade</a></li>
-        <li><a href="/ouvidoria">Ouvidoria</a></li>
-        <li><a href="/pedido">Solicitação e agendamento online</a></li>
-        <li><a href="/protocolo">Consultar protocolo</a></li>
-      </ul>
-    </nav>
+    <div class="rodape-links">
+      <nav aria-labelledby="rod-transp">
+        <h2 id="rod-transp">Transparência</h2>
+        <ul>
+          <li><a href="/transparencia">Receitas e repasses mensais</a></li>
+          <li><a href="/emolumentos">Emolumentos e gratuidades</a></li>
+          <li><a href="<?= e(cartorio('tabela_custas.arquivo')) ?>" download>Tabela de custas 2026 (PDF)</a></li>
+          <li><a href="/serventia">A serventia</a></li>
+          <li><a href="/conformidade">Conformidade com o CNJ</a></li>
+          <li><a href="/validacao">Validar selo</a></li>
+          <li><a href="/validacao#centrais">Centrais nacionais</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="rod-online">
+        <h2 id="rod-online">Atendimento online</h2>
+        <ul>
+          <li><a href="/pedido">Solicitação e agendamento</a></li>
+          <li><a href="/protocolo">Consultar protocolo</a></li>
+          <li><a href="/ouvidoria">Ouvidoria</a></li>
+          <li><a href="/contato">Contato</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="rod-politicas">
+        <h2 id="rod-politicas">Políticas</h2>
+        <ul>
+          <li><a href="/privacidade#aviso" data-dialogo="aviso-privacidade">Aviso de privacidade</a></li>
+          <li><a href="/privacidade#direitos" data-dialogo="direitos-titulares">Direitos dos titulares</a></li>
+          <li><a href="/termos">Termos de uso</a></li>
+          <li><a href="/cookies">Política de cookies</a></li>
+          <li><a href="/acessibilidade">Acessibilidade</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
   <div class="largura rodape-fim">
     <p>© <?= date('Y') ?> <?= e(cartorio('nome_oficial')) ?>. Serviço público delegado, fiscalizado pelo Poder Judiciário do Rio Grande do Norte.</p>

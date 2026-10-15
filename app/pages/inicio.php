@@ -6,7 +6,10 @@ $foto = cartorio('foto_abertura');
 view('header', ['titulo' => '', 'descricao' => null]);
 ?>
 <main id="conteudo" tabindex="-1">
-  <section class="abertura<?= $foto ? ' abertura-foto' : '' ?>"<?= $foto ? ' style="--abertura-imagem: url(\'' . e($foto) . '\')"' : '' ?>>
+  <section class="abertura<?= $foto ? ' abertura-foto' : '' ?>">
+    <?php if ($foto): ?>
+      <img class="abertura-img" src="<?= e($foto) ?>" alt="" width="1101" height="513" fetchpriority="high">
+    <?php endif; ?>
     <div class="largura abertura-grade">
       <div class="abertura-texto">
         <p class="abertura-local"><?= e(cartorio('cidade')) ?></p>
@@ -31,22 +34,15 @@ view('header', ['titulo' => '', 'descricao' => null]);
     </div>
   </section>
 
-  <section class="destaque" aria-label="Tabela de custas e conformidade">
-    <div class="largura destaque-grade">
-      <div class="destaque-tabela">
-        <h2>Tabela de custas 2026</h2>
-        <p>Valores oficiais de emolumentos e taxas de todos os atos, com ISS de 5%. <?= e($tabela['detalhe']) ?>.</p>
-        <a class="botao botao-ouro" href="<?= e($tabela['arquivo']) ?>" download>
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M11 3h2v9.6l3.3-3.3 1.4 1.4L12 16.4l-5.7-5.7 1.4-1.4 3.3 3.3V3ZM5 19h14v2H5z"/></svg>
-          Baixar tabela de custas (PDF, <?= e($tabela['tamanho']) ?>)
-        </a>
-      </div>
-      <div class="destaque-selo">
-        <?php view('selo', ['id' => 'inicio']); ?>
-        <p>Serventia em conformidade com as normas do Conselho Nacional de Justiça, incluindo o Provimento nº 213/2026 e a Lei Geral de Proteção de Dados. <a href="/conformidade">Ver o que isso inclui</a>.</p>
-      </div>
-    </div>
-  </section>
+  <nav class="atalhos-rapidos" aria-label="Acesso rápido">
+    <ul class="largura atalhos-grade">
+      <li><a href="/pedido"><span class="atalho-icone"><?php view('icone', ['nome' => 'pedido']); ?></span><strong>Fazer pedido ou agendar</strong><span>Adiante seu atendimento</span></a></li>
+      <li><a href="/protocolo"><span class="atalho-icone"><?php view('icone', ['nome' => 'protocolo']); ?></span><strong>Consultar protocolo</strong><span>Acompanhe seu pedido</span></a></li>
+      <li><a href="/validacao"><span class="atalho-icone"><?php view('icone', ['nome' => 'selo']); ?></span><strong>Validar selo</strong><span>Confira um ato do cartório</span></a></li>
+      <li><a href="<?= e($tabela['arquivo']) ?>" download><span class="atalho-icone"><?php view('icone', ['nome' => 'custas']); ?></span><strong>Tabela de custas 2026</strong><span>PDF, <?= e($tabela['tamanho']) ?></span></a></li>
+      <li><a href="/ouvidoria"><span class="atalho-icone"><?php view('icone', ['nome' => 'ouvidoria']); ?></span><strong>Ouvidoria</strong><span>Reclamações, sugestões e elogios</span></a></li>
+    </ul>
+  </nav>
 
   <section class="secao" aria-labelledby="t-servicos">
     <div class="largura">
@@ -57,10 +53,12 @@ view('header', ['titulo' => '', 'descricao' => null]);
       <ul class="servicos-grade">
         <?php foreach ($servicos as $i => $grupo): ?>
           <li class="card-servico">
-            <span class="card-servico-icone"><?php view('icone', ['nome' => $grupo['icone'] ?? '']); ?></span>
-            <h3><a href="/servicos#area-<?= $i ?>"><?= e($grupo['area']) ?></a></h3>
+            <div class="card-servico-topo">
+              <span class="card-servico-icone"><?php view('icone', ['nome' => $grupo['icone'] ?? '']); ?></span>
+              <h3><a href="/servicos#area-<?= $i ?>"><?= e($grupo['area']) ?></a></h3>
+            </div>
             <p><?= e($grupo['resumo']) ?></p>
-            <ul>
+            <ul class="card-servico-itens">
               <?php foreach ($grupo['itens'] as $s): ?>
                 <li><a href="/servicos#<?= e($s['slug']) ?>"><?= e($s['nome']) ?></a></li>
               <?php endforeach; ?>
@@ -100,50 +98,34 @@ view('header', ['titulo' => '', 'descricao' => null]);
   </section>
 
   <section class="secao" aria-labelledby="t-acesso">
-    <div class="largura">
-      <div class="secao-cabeca">
-        <h2 id="t-acesso">Informação ao cidadão</h2>
-      </div>
-      <ul class="acesso">
-        <li><a href="/transparencia"><strong>Transparência</strong><span>Receitas públicas arrecadadas mês a mês: parcela pública dos emolumentos e repasses aos fundos.</span></a></li>
-        <li><a href="/emolumentos#gratuidades"><strong>Gratuidades</strong><span>Atos gratuitos por lei, como o registro de nascimento e de óbito e suas primeiras certidões.</span></a></li>
-        <li><a href="/validacao"><strong>Validar selo e certidão</strong><span>Confira a autenticidade de um ato pelo selo digital de fiscalização do TJRN.</span></a></li>
-        <li><a href="/validacao#centrais"><strong>Centrais nacionais</strong><span>e-Notariado, CENSEC, ONR, CRC Nacional e CENPROT para pedidos de todo o país.</span></a></li>
-        <li><a href="/serventia"><strong>A serventia</strong><span>Titular, Código Nacional da Serventia, atribuições e responsáveis.</span></a></li>
-        <li><a href="/protocolo"><strong>Consultar protocolo</strong><span>Acompanhe uma solicitação, manifestação ou pedido enviado pelo site.</span></a></li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="ouvidoria-faixa" aria-labelledby="t-ouv">
-    <div class="largura ouvidoria-in">
+    <div class="largura cidadao-grade">
       <div>
-        <h2 id="t-ouv">Ouvidoria</h2>
-        <p>Denúncias, reclamações, sugestões e elogios. Você pode se identificar ou não; toda manifestação recebe protocolo.</p>
-      </div>
-      <a class="botao botao-claro" href="/ouvidoria">Abrir manifestação</a>
-    </div>
-  </section>
-
-  <section class="secao" aria-labelledby="t-links">
-    <div class="largura links-grade">
-      <div>
-        <h2 id="t-links">Links úteis</h2>
-        <ul class="links">
-          <?php foreach (cartorio('links_uteis') as [$rot, $href]): ?>
-            <li><a href="<?= e($href) ?>" rel="noopener" target="_blank"><?= e($rot) ?></a></li>
-          <?php endforeach; ?>
+        <div class="secao-cabeca">
+          <h2 id="t-acesso">Informação ao cidadão</h2>
+        </div>
+        <ul class="acesso">
+          <li><a href="/transparencia"><strong>Transparência</strong><span>Receitas públicas arrecadadas mês a mês: parcela pública dos emolumentos e repasses aos fundos.</span></a></li>
+          <li><a href="/emolumentos#gratuidades"><strong>Gratuidades</strong><span>Atos gratuitos por lei, como o registro de nascimento e de óbito e suas primeiras certidões.</span></a></li>
+          <li><a href="/validacao#centrais"><strong>Centrais nacionais</strong><span>e-Notariado, CENSEC, ONR, CRC Nacional e CENPROT para pedidos de todo o país.</span></a></li>
+          <li><a href="/serventia"><strong>A serventia</strong><span>Titular, Código Nacional da Serventia, atribuições e responsáveis.</span></a></li>
         </ul>
       </div>
-      <div>
-        <h2>Onde estamos</h2>
-        <address class="endereco">
-          <?= e(cartorio('endereco')) ?><br>
-          <?= e(cartorio('cidade')) ?>, CEP <?= e(cartorio('cep')) ?><br>
-          <?= e(cartorio('horario')) ?>
-        </address>
-        <p><a href="<?= e(cartorio('mapa_url')) ?>" rel="noopener" target="_blank">Abrir no mapa</a></p>
-      </div>
+      <aside class="conformidade-cartao" aria-label="Conformidade e tabela de custas">
+        <?php view('selo', ['id' => 'inicio']); ?>
+        <p>Serventia em conformidade com as normas do Conselho Nacional de Justiça, incluindo o Provimento nº 213/2026 e a Lei Geral de Proteção de Dados. <a href="/conformidade">Ver o que isso inclui</a>.</p>
+        <p class="conformidade-tabela">Valores oficiais na <a href="<?= e($tabela['arquivo']) ?>" download>Tabela de custas 2026</a> (<?= e($tabela['detalhe']) ?>), com ISS de 5%.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="secao-links" aria-labelledby="t-links">
+    <div class="largura links-faixa">
+      <h2 id="t-links">Links úteis</h2>
+      <ul class="links">
+        <?php foreach (cartorio('links_uteis') as [$rot, $href]): ?>
+          <li><a href="<?= e($href) ?>" rel="noopener" target="_blank"><?= e($rot) ?></a></li>
+        <?php endforeach; ?>
+      </ul>
     </div>
   </section>
 </main>

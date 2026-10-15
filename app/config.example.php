@@ -27,11 +27,11 @@ return [
         // mail = função mail() do PHP (Postfix/Exim local do servidor)
         // smtp = conexão SMTP autenticada
         // log  = não envia, grava em storage/logs/mail.log (testes)
-        'transport'  => 'mail',
+        'transport'  => 'smtp',
         'from_email' => 'nao-responda@cartoriosjcampestre.com.br',
         'from_name'  => 'Cartório de São José do Campestre',
         'smtp' => [
-            'host'       => 'localhost',
+            'host'       => 'mail.cartoriosjcampestre.com.br',
             'port'       => 587,
             'encryption' => 'tls',        // tls (STARTTLS na 587), ssl (465) ou none
             'username'   => 'nao-responda@cartoriosjcampestre.com.br',
