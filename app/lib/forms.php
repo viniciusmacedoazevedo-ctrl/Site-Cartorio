@@ -38,6 +38,26 @@ function servicos_lista(): array
 }
 
 /**
+ * Próximos dias úteis (segunda a sexta) para o agendamento, a partir de amanhã.
+ * Sábados e domingos ficam de fora da lista, então não podem ser escolhidos.
+ * Chave no formato Y-m-d (gravada no registro); rótulo para o cidadão.
+ */
+function dias_uteis_agendamento(int $quantos = 30): array
+{
+    $semana = [1 => 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira'];
+    $dias = ['' => 'Sem preferência'];
+    $d = new DateTimeImmutable('tomorrow');
+    while (count($dias) <= $quantos) {
+        $n = (int) $d->format('N');
+        if ($n <= 5) {
+            $dias[$d->format('Y-m-d')] = $semana[$n] . ', ' . $d->format('d/m/Y');
+        }
+        $d = $d->modify('+1 day');
+    }
+    return $dias;
+}
+
+/**
  * Definição dos formulários. 'tipo_campo' indica qual campo vira a coluna "tipo"
  * do registro (usada em filtros e na permissão do perfil Atendente).
  */
@@ -54,7 +74,7 @@ function formularios(): array
                     'Pedido online' => 'Pedido online: o cartório responde por e-mail ou telefone',
                     'Agendamento presencial' => 'Agendar atendimento no cartório',
                 ], 'required' => true],
-                'data_preferida' => ['label' => 'Data preferida', 'type' => 'date', 'hint' => 'Só para agendamento. O cartório confirma a data com você.'],
+                'data_preferida' => ['label' => 'Data preferida', 'type' => 'select', 'options' => dias_uteis_agendamento(), 'hint' => 'Atendimento de segunda a sexta. O cartório confirma a data com você.'],
                 'periodo' => ['label' => 'Período', 'type' => 'select', 'options' => ['' => 'Sem preferência', 'Manhã' => 'Manhã (8h às 12h)', 'Tarde' => 'Tarde (13h às 17h)']],
                 'nome' => ['label' => 'Nome completo', 'type' => 'text', 'required' => true, 'max' => 150, 'autocomplete' => 'name'],
                 'cpf' => ['label' => 'CPF', 'type' => 'cpf', 'hint' => 'Ajuda a localizar seus registros.'],

@@ -9,6 +9,13 @@ view('header', ['titulo' => '', 'descricao' => null]);
   <section class="abertura<?= $foto ? ' abertura-foto' : '' ?>">
     <?php if ($foto): ?>
       <img class="abertura-img" src="<?= e($foto) ?>" alt="" width="1101" height="513" fetchpriority="high">
+    <?php else: ?>
+      <div class="abertura-fundo" aria-hidden="true">
+        <img class="abertura-brasao" src="/assets/img/brasao-gravura.svg" alt="" width="128" height="135">
+        <svg class="abertura-nome" viewBox="0 0 1160 60" preserveAspectRatio="xMidYMid meet" focusable="false">
+          <text x="580" y="46" text-anchor="middle" textLength="1150" lengthAdjust="spacingAndGlyphs">SERVIÇO NOTARIAL E REGISTRAL · SÃO JOSÉ DO CAMPESTRE · RN</text>
+        </svg>
+      </div>
     <?php endif; ?>
     <div class="largura abertura-grade">
       <div class="abertura-texto">
@@ -23,7 +30,7 @@ view('header', ['titulo' => '', 'descricao' => null]);
       <aside class="ficha" aria-label="Atendimento presencial">
         <p class="ficha-estado <?= $agora['aberto'] ? 'aberto' : 'fechado' ?>"><span aria-hidden="true"></span><?= e($agora['texto']) ?></p>
         <dl>
-          <div><dt>Horário</dt><dd><?= e(cartorio('horario')) ?></dd></div>
+          <div><dt>Horário</dt><dd class="ficha-linha"><?= e(cartorio('horario')) ?></dd></div>
           <div><dt>Endereço</dt><dd><?= e(cartorio('endereco')) ?><br><?= e(cartorio('cidade')) ?></dd></div>
           <div><dt>Telefone</dt><dd><a href="tel:<?= e(cartorio('telefone_link')) ?>"><?= e(cartorio('telefone')) ?></a></dd></div>
           <div><dt>WhatsApp</dt><dd><a href="https://wa.me/<?= e(cartorio('whatsapp_link')) ?>"><?= e(cartorio('whatsapp')) ?></a></dd></div>
@@ -52,7 +59,7 @@ view('header', ['titulo' => '', 'descricao' => null]);
       </div>
       <ul class="servicos-grade">
         <?php foreach ($servicos as $i => $grupo): ?>
-          <li class="card-servico">
+          <li class="card-servico<?= count($grupo['itens']) >= 4 ? ' card-servico-largo' : '' ?>">
             <div class="card-servico-topo">
               <span class="card-servico-icone"><?php view('icone', ['nome' => $grupo['icone'] ?? '']); ?></span>
               <h3><a href="/servicos#area-<?= $i ?>"><?= e($grupo['area']) ?></a></h3>
