@@ -23,8 +23,7 @@
       </a>
       <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
       <nav id="nav" class="nav" aria-label="Principal">
-        <a href="#servicos">Serviços</a>
-        <a href="#documentos">Documentos</a>
+        <a href="#servicos">Serviços e documentos</a>
         <a href="#atendimento">Atendimento</a>
         <a href="#duvidas">Dúvidas</a>
         <a href="#contato" class="btn btn--small">Fale conosco</a>
@@ -34,25 +33,36 @@
 
   <main id="conteudo">
     <section id="inicio" class="hero">
+      <svg class="seal" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <defs><path id="seal-ring" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs>
+        <circle cx="100" cy="100" r="96"/><circle cx="100" cy="100" r="62"/>
+        <text><textPath href="#seal-ring" textLength="490">FÉ PÚBLICA · SEGURANÇA JURÍDICA · AUTENTICIDADE ·</textPath></text>
+      </svg>
       <div class="wrap hero__grid">
         <div>
-          <p class="eyebrow">[Cidade] — [UF]</p>
-          <h1>Seus documentos com segurança jurídica e atendimento sem complicação.</h1>
-          <p class="lead">Escrituras, procurações, reconhecimento de firma, autenticações, certidões e registro civil. Presencialmente ou pelo e-Notariado.</p>
-          <div class="hero__actions">
-            <a class="btn" href="https://wa.me/550000000000" rel="noopener">Atendimento pelo WhatsApp</a>
-            <a class="btn btn--ghost" href="#documentos">Ver documentos necessários</a>
-          </div>
+          <p class="place">Tabelionato de Notas e Registro Civil · [Cidade]/[UF]</p>
+          <h1>O que você precisa resolver hoje?</h1>
+          <p class="lead">Veja os documentos de cada serviço antes de vir, ou faça o ato à distância pelo e-Notariado.</p>
+          <ul class="tasks" aria-label="Serviços mais procurados">
+            <li><a href="#servicos" data-goto="firma">Reconhecer firma</a></li>
+            <li><a href="#servicos" data-goto="proc">Fazer uma procuração</a></li>
+            <li><a href="#servicos" data-goto="escr">Escritura de imóvel</a></li>
+            <li><a href="#servicos" data-goto="cert">Pedir 2ª via de certidão</a></li>
+            <li><a href="#servicos" data-goto="nasc">Registrar nascimento</a></li>
+            <li><a href="#servicos" data-goto="cas">Casar no civil</a></li>
+          </ul>
+          <p class="hero__more">Outro assunto? <a href="https://wa.me/550000000000" rel="noopener">Fale com a equipe pelo WhatsApp</a>.</p>
         </div>
         <aside class="card hours" aria-labelledby="h-hours">
           <h2 id="h-hours">Horário de atendimento</h2>
           <dl>
-            <div><dt>Segunda a sexta</dt><dd>9h às 17h</dd></div>
-            <div><dt>Sábado</dt><dd>9h às 12h <span class="muted">(registro civil)</span></dd></div>
-            <div><dt>Domingos e feriados</dt><dd>Plantão de óbitos</dd></div>
+            <div data-days="1-5"><dt>Segunda a sexta</dt><dd>9h às 17h</dd></div>
+            <div data-days="6"><dt>Sábado</dt><dd>9h às 12h <span class="muted">(registro civil)</span></dd></div>
+            <div data-days="0"><dt>Domingos e feriados</dt><dd>Plantão de óbitos</dd></div>
           </dl>
           <p class="status" data-status aria-live="polite"></p>
           <p class="muted small">[Rua Exemplo, 123 — Centro]<br>[Cidade]/[UF] · CEP [00000-000]</p>
+          <a class="hours__link" href="https://www.google.com/maps/search/?api=1&query=Rua+Exemplo+123" rel="noopener">Como chegar →</a>
         </aside>
       </div>
     </section>
@@ -60,102 +70,166 @@
     <section id="servicos" class="section">
       <div class="wrap">
         <header class="section__head">
-          <h2>Serviços</h2>
-          <p>Atos notariais e de registro civil com orientação do início ao fim.</p>
+          <h2>Serviços e documentos</h2>
+          <p>Escolha o serviço para ver o que levar. Traga sempre os originais, com documentos de identificação dentro da validade.</p>
         </header>
-        <div class="services">
-          <article class="service">
-            <h3>Escrituras</h3>
-            <p>Compra e venda, doação, inventário e partilha, divórcio consensual, união estável e pacto antenupcial.</p>
-          </article>
-          <article class="service">
-            <h3>Procurações</h3>
-            <p>Públicas, para fins gerais ou específicos, inclusive previdenciárias e para venda de imóveis e veículos.</p>
-          </article>
-          <article class="service">
-            <h3>Reconhecimento de firma</h3>
-            <p>Por semelhança ou por autenticidade (exigida em transferência de veículos). Abertura de ficha de assinatura.</p>
-          </article>
-          <article class="service">
-            <h3>Autenticação de cópias</h3>
-            <p>Cópias autenticadas com o mesmo valor do original, incluindo a autenticação digital de documentos.</p>
-          </article>
-          <article class="service">
-            <h3>Registro civil</h3>
-            <p>Nascimento, casamento, óbito, habilitação de casamento e averbações. Registro de nascimento é gratuito.</p>
-          </article>
-          <article class="service">
-            <h3>Certidões</h3>
-            <p>Segundas vias de nascimento, casamento e óbito, em papel ou digital, inclusive com inteiro teor.</p>
-          </article>
-          <article class="service">
-            <h3>Atas notariais</h3>
-            <p>Constatação de fatos, conversas, páginas da internet e mensagens para uso como prova.</p>
-          </article>
-          <article class="service">
-            <h3>Testamentos</h3>
-            <p>Testamento público com orientação do tabelião e registro na Central Notarial de Serviços Eletrônicos.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="documentos" class="section section--alt">
-      <div class="wrap">
-        <header class="section__head">
-          <h2>Documentos necessários</h2>
-          <p>Traga os originais. Documentos de identificação devem estar dentro da validade.</p>
-        </header>
-        <div class="tabs" data-tabs>
-          <div class="tabs__list" role="tablist" aria-label="Tipos de serviço">
-            <button role="tab" id="t-firma" aria-controls="p-firma" aria-selected="true">Firma</button>
+        <div class="explorer" data-tabs>
+          <div class="explorer__list" role="tablist" aria-label="Serviços" aria-orientation="vertical">
+            <p class="explorer__group" role="presentation">Tabelionato de notas</p>
+            <button role="tab" id="t-firma" aria-controls="p-firma" aria-selected="true">Reconhecimento de firma</button>
+            <button role="tab" id="t-auth" aria-controls="p-auth" aria-selected="false" tabindex="-1">Autenticação de cópias</button>
             <button role="tab" id="t-proc" aria-controls="p-proc" aria-selected="false" tabindex="-1">Procuração</button>
-            <button role="tab" id="t-escr" aria-controls="p-escr" aria-selected="false" tabindex="-1">Escritura de imóvel</button>
-            <button role="tab" id="t-nasc" aria-controls="p-nasc" aria-selected="false" tabindex="-1">Nascimento</button>
-            <button role="tab" id="t-cas" aria-controls="p-cas" aria-selected="false" tabindex="-1">Casamento</button>
+            <button role="tab" id="t-escr" aria-controls="p-escr" aria-selected="false" tabindex="-1">Escritura</button>
+            <button role="tab" id="t-test" aria-controls="p-test" aria-selected="false" tabindex="-1">Testamento</button>
+            <button role="tab" id="t-ata" aria-controls="p-ata" aria-selected="false" tabindex="-1">Ata notarial</button>
+            <p class="explorer__group" role="presentation">Registro civil</p>
+            <button role="tab" id="t-nasc" aria-controls="p-nasc" aria-selected="false" tabindex="-1">Registro de nascimento</button>
+            <button role="tab" id="t-cas" aria-controls="p-cas" aria-selected="false" tabindex="-1">Casamento civil</button>
+            <button role="tab" id="t-cert" aria-controls="p-cert" aria-selected="false" tabindex="-1">Certidões</button>
           </div>
-          <div class="tabs__panel" role="tabpanel" id="p-firma" aria-labelledby="t-firma">
+          <div class="explorer__panel" role="tabpanel" id="p-firma" aria-labelledby="t-firma">
+            <h3>Reconhecimento de firma</h3>
+            <p class="explorer__meta">Por ordem de chegada</p>
+            <p>Por semelhança ou por autenticidade (exigida na transferência de veículos). Na primeira vez, abrimos sua ficha de assinatura.</p>
+            <h4>O que levar</h4>
             <ul class="check">
-              <li>Documento de identidade original com foto (RG, CNH ou passaporte)</li>
-              <li>CPF, caso não conste no documento de identidade</li>
-              <li>Comprovante de endereço recente</li>
-              <li>Para autenticidade: presença do signatário e o documento a ser assinado</li>
+                <li>Documento de identidade original com foto (RG, CNH ou passaporte)</li>
+                <li>CPF, caso não conste no documento de identidade</li>
+                <li>Comprovante de endereço recente, para abrir a ficha de assinatura</li>
+                <li>Para autenticidade: presença do signatário e o documento a ser assinado</li>
             </ul>
+            <div class="explorer__actions">
+              <a class="btn" href="https://wa.me/550000000000" data-ask="Reconhecimento de firma" rel="noopener">Tirar dúvida sobre reconhecimento de firma</a>
+              <button class="btn btn--ghost" type="button" data-print>Imprimir lista</button>
+            </div>
           </div>
-          <div class="tabs__panel" role="tabpanel" id="p-proc" aria-labelledby="t-proc" hidden>
+          <div class="explorer__panel" role="tabpanel" id="p-auth" aria-labelledby="t-auth" hidden>
+            <h3>Autenticação de cópias</h3>
+            <p class="explorer__meta">Por ordem de chegada</p>
+            <p>Cópias autenticadas com o mesmo valor do original, inclusive autenticação digital de documentos.</p>
+            <h4>O que levar</h4>
             <ul class="check">
-              <li>Documento de identidade e CPF de quem outorga (dá os poderes)</li>
-              <li>Nome completo, CPF, estado civil, profissão e endereço do procurador</li>
-              <li>Certidão de casamento, se casado(a)</li>
-              <li>Dados do bem ou do processo, quando a procuração for específica</li>
+                <li>Documento original, legível e sem rasuras</li>
+                <li>As cópias, se já trouxer prontas (também fazemos as cópias no balcão)</li>
             </ul>
+            <div class="explorer__actions">
+              <a class="btn" href="https://wa.me/550000000000" data-ask="Autenticação de cópias" rel="noopener">Tirar dúvida sobre autenticação de cópias</a>
+              <button class="btn btn--ghost" type="button" data-print>Imprimir lista</button>
+            </div>
           </div>
-          <div class="tabs__panel" role="tabpanel" id="p-escr" aria-labelledby="t-escr" hidden>
+          <div class="explorer__panel" role="tabpanel" id="p-proc" aria-labelledby="t-proc" hidden>
+            <h3>Procuração</h3>
+            <p class="explorer__meta">Presencial ou e-Notariado</p>
+            <p>Pública, para fins gerais ou específicos, inclusive previdenciária e para venda de imóveis e veículos.</p>
+            <h4>O que levar</h4>
             <ul class="check">
-              <li>Documentos pessoais de compradores e vendedores e certidões de estado civil</li>
-              <li>Matrícula atualizada do imóvel (validade de 30 dias)</li>
-              <li>Guia do ITBI paga e certidão negativa de débitos municipais</li>
-              <li>Certidões dos vendedores: Justiça Estadual, Federal, Trabalhista e de protesto</li>
+                <li>Documento de identidade e CPF de quem outorga (dá os poderes)</li>
+                <li>Nome completo, CPF, estado civil, profissão e endereço do procurador</li>
+                <li>Certidão de casamento, se quem outorga for casado(a)</li>
+                <li>Dados do bem ou do processo, quando a procuração for específica</li>
             </ul>
+            <div class="explorer__actions">
+              <a class="btn" href="https://wa.me/550000000000" data-ask="Procuração" rel="noopener">Tirar dúvida sobre procuração</a>
+              <button class="btn btn--ghost" type="button" data-print>Imprimir lista</button>
+            </div>
           </div>
-          <div class="tabs__panel" role="tabpanel" id="p-nasc" aria-labelledby="t-nasc" hidden>
+          <div class="explorer__panel" role="tabpanel" id="p-escr" aria-labelledby="t-escr" hidden>
+            <h3>Escritura</h3>
+            <p class="explorer__meta">Com agendamento · presencial ou e-Notariado</p>
+            <p>Compra e venda, doação, inventário e partilha, divórcio consensual, união estável e pacto antenupcial.</p>
+            <h4>O que levar</h4>
             <ul class="check">
-              <li>Declaração de Nascido Vivo (DNV) fornecida pela maternidade</li>
-              <li>Documento de identidade dos pais</li>
-              <li>Certidão de casamento dos pais, se forem casados</li>
-              <li>Se o pai não comparecer e os pais não forem casados: procuração ou termo de reconhecimento</li>
+                <li>Documentos pessoais de todas as partes e certidões de estado civil</li>
+                <li>Matrícula atualizada do imóvel (validade de 30 dias)</li>
+                <li>Guia do ITBI (ou ITCMD) paga e certidão negativa de débitos municipais</li>
+                <li>Certidões dos vendedores: Justiça Estadual, Federal, Trabalhista e de protesto</li>
             </ul>
+            <div class="explorer__actions">
+              <a class="btn" href="https://wa.me/550000000000" data-ask="Escritura" rel="noopener">Tirar dúvida sobre escritura</a>
+              <button class="btn btn--ghost" type="button" data-print>Imprimir lista</button>
+            </div>
           </div>
-          <div class="tabs__panel" role="tabpanel" id="p-cas" aria-labelledby="t-cas" hidden>
+          <div class="explorer__panel" role="tabpanel" id="p-test" aria-labelledby="t-test" hidden>
+            <h3>Testamento</h3>
+            <p class="explorer__meta">Com agendamento</p>
+            <p>Testamento público lavrado pelo tabelião, com orientação e registro na central nacional de testamentos.</p>
+            <h4>O que levar</h4>
             <ul class="check">
-              <li>Certidão de nascimento ou de casamento com averbação de divórcio, atualizada</li>
-              <li>Documento de identidade e comprovante de endereço dos noivos</li>
-              <li>Duas testemunhas maiores de idade com documento de identidade</li>
-              <li>Pacto antenupcial, se o regime escolhido não for a comunhão parcial</li>
+                <li>Documento de identidade e CPF de quem faz o testamento</li>
+                <li>Certidão de nascimento ou casamento atualizada</li>
+                <li>Dados dos herdeiros e dos bens que deseja destinar</li>
+                <li>Duas testemunhas maiores de idade, sem parentesco com os beneficiados</li>
             </ul>
+            <div class="explorer__actions">
+              <a class="btn" href="https://wa.me/550000000000" data-ask="Testamento" rel="noopener">Tirar dúvida sobre testamento</a>
+              <button class="btn btn--ghost" type="button" data-print>Imprimir lista</button>
+            </div>
+          </div>
+          <div class="explorer__panel" role="tabpanel" id="p-ata" aria-labelledby="t-ata" hidden>
+            <h3>Ata notarial</h3>
+            <p class="explorer__meta">Com agendamento</p>
+            <p>O tabelião constata e registra fatos, conversas, páginas da internet e mensagens para uso como prova.</p>
+            <h4>O que levar</h4>
+            <ul class="check">
+                <li>Documento de identidade e CPF do solicitante</li>
+                <li>O conteúdo a ser constatado: aparelho celular, endereço da página ou local do fato</li>
+                <li>Descrição do que precisa ficar registrado</li>
+            </ul>
+            <div class="explorer__actions">
+              <a class="btn" href="https://wa.me/550000000000" data-ask="Ata notarial" rel="noopener">Tirar dúvida sobre ata notarial</a>
+              <button class="btn btn--ghost" type="button" data-print>Imprimir lista</button>
+            </div>
+          </div>
+          <div class="explorer__panel" role="tabpanel" id="p-nasc" aria-labelledby="t-nasc" hidden>
+            <h3>Registro de nascimento</h3>
+            <p class="explorer__meta">Gratuito · por ordem de chegada</p>
+            <p>Gratuito para todos, com a primeira certidão. Pode ser feito no cartório do local do parto ou da residência dos pais.</p>
+            <h4>O que levar</h4>
+            <ul class="check">
+                <li>Declaração de Nascido Vivo (DNV) fornecida pela maternidade</li>
+                <li>Documento de identidade dos pais</li>
+                <li>Certidão de casamento dos pais, se forem casados</li>
+                <li>Se o pai não comparecer e os pais não forem casados: procuração ou termo de reconhecimento</li>
+            </ul>
+            <div class="explorer__actions">
+              <a class="btn" href="https://wa.me/550000000000" data-ask="Registro de nascimento" rel="noopener">Tirar dúvida sobre registro de nascimento</a>
+              <button class="btn btn--ghost" type="button" data-print>Imprimir lista</button>
+            </div>
+          </div>
+          <div class="explorer__panel" role="tabpanel" id="p-cas" aria-labelledby="t-cas" hidden>
+            <h3>Casamento civil</h3>
+            <p class="explorer__meta">Com agendamento</p>
+            <p>Habilitação, celebração no cartório ou em diligência, e conversão de união estável em casamento.</p>
+            <h4>O que levar</h4>
+            <ul class="check">
+                <li>Certidão de nascimento, ou de casamento com averbação de divórcio, atualizada</li>
+                <li>Documento de identidade e comprovante de endereço dos noivos</li>
+                <li>Duas testemunhas maiores de idade com documento de identidade</li>
+                <li>Pacto antenupcial, se o regime escolhido não for a comunhão parcial</li>
+            </ul>
+            <div class="explorer__actions">
+              <a class="btn" href="https://wa.me/550000000000" data-ask="Casamento civil" rel="noopener">Tirar dúvida sobre casamento civil</a>
+              <button class="btn btn--ghost" type="button" data-print>Imprimir lista</button>
+            </div>
+          </div>
+          <div class="explorer__panel" role="tabpanel" id="p-cert" aria-labelledby="t-cert" hidden>
+            <h3>Certidões</h3>
+            <p class="explorer__meta">No balcão ou online pela CRC</p>
+            <p>Segundas vias de nascimento, casamento e óbito, em papel ou digitais, inclusive em inteiro teor.</p>
+            <h4>O que levar</h4>
+            <ul class="check">
+                <li>Nome completo da pessoa registrada</li>
+                <li>Data do registro ou do fato (nascimento, casamento ou óbito)</li>
+                <li>Nomes dos pais, se souber, para agilizar a busca</li>
+                <li>Documento de identidade de quem retira</li>
+            </ul>
+            <div class="explorer__actions">
+              <a class="btn" href="https://wa.me/550000000000" data-ask="Certidões" rel="noopener">Tirar dúvida sobre certidões</a>
+              <button class="btn btn--ghost" type="button" data-print>Imprimir lista</button>
+            </div>
           </div>
         </div>
-        <p class="muted small note">A lista é orientativa. Cada caso pode exigir documentos adicionais; confirme com nossa equipe antes de vir.</p>
+        <p class="muted small note">As listas são orientativas. Cada caso pode exigir documentos adicionais; confirme com nossa equipe antes de vir.</p>
       </div>
     </section>
 
@@ -238,6 +312,12 @@
       </div>
     </section>
   </main>
+
+  <nav class="actionbar" aria-label="Contato rápido">
+    <a href="tel:+550000000000">Ligar</a>
+    <a href="https://wa.me/550000000000" rel="noopener">WhatsApp</a>
+    <a href="https://www.google.com/maps/search/?api=1&query=Rua+Exemplo+123" rel="noopener">Como chegar</a>
+  </nav>
 
   <footer class="footer">
     <div class="wrap footer__grid">
