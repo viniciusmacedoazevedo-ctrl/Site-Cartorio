@@ -4,57 +4,50 @@
     <section class="rodape-bloco rodape-id" aria-label="Identificação da serventia">
       <img src="/assets/img/brasao.png" alt="" width="40" height="42">
       <p class="rodape-nome"><?= e(cartorio('nome_oficial')) ?></p>
-      <p>CNS <?= e(cartorio('cns')) ?> · CNPJ <?= e(cartorio('cnpj')) ?></p>
       <p><?= e(cartorio('titular_cargo')) ?>: <?= e(cartorio('titular')) ?></p>
+      <p>CNS <?= e(cartorio('cns')) ?><br>CNPJ <?= e(cartorio('cnpj')) ?></p>
       <p><?= e(cartorio('endereco')) ?><br><?= e(cartorio('cidade')) ?>, CEP <?= e(cartorio('cep')) ?></p>
       <p><?= e(cartorio('horario')) ?></p>
     </section>
     <section class="rodape-bloco" aria-labelledby="rod-contato">
       <h2 id="rod-contato">Atendimento</h2>
-      <p>Telefone <a href="tel:<?= e(cartorio('telefone_link')) ?>"><?= e(cartorio('telefone')) ?></a></p>
-      <p>WhatsApp <a href="https://wa.me/<?= e(cartorio('whatsapp_link')) ?>"><?= e(cartorio('whatsapp')) ?></a></p>
+      <p>Telefone <a href="tel:<?= e(cartorio('telefone_link')) ?>"><?= e(cartorio('telefone')) ?></a><br>WhatsApp <a href="https://wa.me/<?= e(cartorio('whatsapp_link')) ?>"><?= e(cartorio('whatsapp')) ?></a></p>
       <p><a href="mailto:<?= e($em['contato']) ?>"><?= e($em['contato']) ?></a></p>
       <p class="rodape-pessoa"><?= e(cartorio('titular_cargo')) ?><br><strong><?= e(cartorio('titular')) ?></strong><br><a href="mailto:<?= e($em['notaria']) ?>"><?= e($em['notaria']) ?></a></p>
-    </section>
-    <section class="rodape-bloco" aria-labelledby="rod-dados">
       <h2 id="rod-dados">Proteção de dados</h2>
       <p class="rodape-pessoa">Encarregado (DPO)<br><strong><?= e(cartorio('dpo_nome')) ?></strong><br><a href="mailto:<?= e(cartorio('dpo_email')) ?>"><?= e(cartorio('dpo_email')) ?></a></p>
-      <p class="rodape-pessoa">Solicitação dos direitos dos titulares<br><a href="mailto:<?= e($em['lgpd']) ?>"><?= e($em['lgpd']) ?></a></p>
-      <p class="rodape-pessoa">Linha de apoio à ética e denúncia de fraudes<br><a href="mailto:<?= e($em['compliance']) ?>"><?= e($em['compliance']) ?></a><br><?= e(cartorio('etica_telefone')) ?></p>
+      <p class="rodape-pessoa">Direitos dos titulares<br><a href="mailto:<?= e($em['lgpd']) ?>"><?= e($em['lgpd']) ?></a></p>
+      <p class="rodape-pessoa">Ética e denúncia de fraudes<br><a href="mailto:<?= e($em['compliance']) ?>"><?= e($em['compliance']) ?></a><br><?= e(cartorio('etica_telefone')) ?></p>
     </section>
-    <div class="rodape-links">
-      <nav aria-labelledby="rod-transp">
-        <h2 id="rod-transp">Transparência</h2>
-        <ul>
-          <li><a href="/transparencia">Receitas e repasses mensais</a></li>
-          <li><a href="/emolumentos">Emolumentos e gratuidades</a></li>
-          <li><a href="<?= e(cartorio('tabela_custas.arquivo')) ?>" download>Tabela de custas 2026 (PDF)</a></li>
-          <li><a href="/serventia">A serventia</a></li>
-          <li><a href="/conformidade">Conformidade com o CNJ</a></li>
-          <li><a href="/validacao">Validar selo</a></li>
-          <li><a href="/validacao#centrais">Centrais nacionais</a></li>
-        </ul>
-      </nav>
-      <nav aria-labelledby="rod-online">
-        <h2 id="rod-online">Atendimento online</h2>
-        <ul>
-          <li><a href="/pedido">Solicitação e agendamento</a></li>
-          <li><a href="/protocolo">Consultar protocolo</a></li>
-          <li><a href="/ouvidoria">Ouvidoria</a></li>
-          <li><a href="/contato">Contato</a></li>
-        </ul>
-      </nav>
-      <nav aria-labelledby="rod-politicas">
-        <h2 id="rod-politicas">Políticas</h2>
-        <ul>
-          <li><a href="/privacidade#aviso" data-dialogo="aviso-privacidade">Aviso de privacidade</a></li>
-          <li><a href="/privacidade#direitos" data-dialogo="direitos-titulares">Direitos dos titulares</a></li>
-          <li><a href="/termos">Termos de uso</a></li>
-          <li><a href="/cookies">Política de cookies</a></li>
-          <li><a href="/acessibilidade">Acessibilidade</a></li>
-        </ul>
-      </nav>
-    </div>
+    <nav class="rodape-bloco" aria-labelledby="rod-transp">
+      <h2 id="rod-transp">Transparência</h2>
+      <ul>
+        <li><a href="/transparencia">Receitas e repasses mensais</a></li>
+        <li><a href="/emolumentos">Emolumentos e gratuidades</a></li>
+        <li><a href="<?= e(cartorio('tabela_custas.arquivo')) ?>" download>Tabela de custas 2026 (PDF)</a></li>
+        <li><a href="/serventia">A serventia</a></li>
+        <li><a href="/conformidade">Conformidade com o CNJ</a></li>
+        <li><a href="/validacao">Validar selo</a></li>
+        <li><a href="/validacao#centrais">Centrais nacionais</a></li>
+      </ul>
+    </nav>
+    <nav class="rodape-bloco" aria-labelledby="rod-online">
+      <h2 id="rod-online">Atendimento online</h2>
+      <ul>
+        <li><a href="/pedido">Solicitação e agendamento</a></li>
+        <li><a href="/protocolo">Consultar protocolo</a></li>
+        <li><a href="/ouvidoria">Ouvidoria</a></li>
+        <li><a href="/contato">Contato</a></li>
+      </ul>
+      <h2 id="rod-politicas">Políticas</h2>
+      <ul>
+        <li><a href="/privacidade#aviso" data-dialogo="aviso-privacidade">Aviso de privacidade</a></li>
+        <li><a href="/privacidade#direitos" data-dialogo="direitos-titulares">Direitos dos titulares</a></li>
+        <li><a href="/termos">Termos de uso</a></li>
+        <li><a href="/cookies">Política de cookies</a></li>
+        <li><a href="/acessibilidade">Acessibilidade</a></li>
+      </ul>
+    </nav>
   </div>
   <div class="largura rodape-fim">
     <p>© <?= date('Y') ?> <?= e(cartorio('nome_oficial')) ?>. Serviço público delegado, fiscalizado pelo Poder Judiciário do Rio Grande do Norte.</p>

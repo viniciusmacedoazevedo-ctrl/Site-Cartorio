@@ -68,7 +68,7 @@ view('header', ['titulo' => 'Transparência', 'descricao' => 'Receitas públicas
     <div class="texto-legal texto-estreito">
       <h2>O que é publicado aqui</h2>
       <ul>
-        <li><strong>Emolumentos (parcela pública)</strong>, repasses ao <strong>fundo de reaparelhamento da Justiça</strong>, ao <strong>fundo de compensação</strong> e a <strong>outros fundos especiais</strong>, como define a norma do CNJ.</li>
+        <li><strong>Emolumentos (parcela pública)</strong> e repasses aos fundos estaduais: <strong>FDJ</strong> (Fundo de Desenvolvimento da Justiça), <strong>FRMP</strong> (Fundo de Reaparelhamento do Ministério Público), <strong>FCRCPN</strong> (Fundo de Compensação dos Registradores Civis das Pessoas Naturais) e <strong>FUNAF</strong>, como define a norma do CNJ.</li>
         <li>O ISS é o imposto municipal sobre os serviços, recolhido ao Município de São José do Campestre.</li>
       </ul>
       <h2>Parcela privada e remuneração</h2>
