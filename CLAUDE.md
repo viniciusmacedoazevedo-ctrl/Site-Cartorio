@@ -52,6 +52,6 @@ E-mails de teste ficam em `storage/logs/mail.log`.
 
 ## Pendências conhecidas (ver README, "Para revisar antes de publicar")
 
-- Confirmar o CNS 09.545-5 no Justiça Aberta do CNJ.
-- Endereço direto de consulta de selos do TJRN (`corregedoria_url` em `app/content/cartorio.php`).
-- Foto real para a abertura da página inicial (`foto_abertura` em `app/content/cartorio.php`); sem foto, o fundo fica verde-noturno.
+- Nome por extenso do FUNAF (`app/content/transparencia.php`): confirmar com o contador.
+- DNS de `cartoriosjcampestre.com.br` e `www` ainda não aponta para o servidor.
+- Servidor do cartório: Nginx (guia também cobre Apache), já hospeda outros sites. E-mail por SMTP em `mail.cartoriosjcampestre.com.br`; a senha fica só no `app/config.php` do servidor, nunca no repositório.

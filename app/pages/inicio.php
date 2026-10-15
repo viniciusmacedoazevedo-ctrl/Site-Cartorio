@@ -6,7 +6,10 @@ $foto = cartorio('foto_abertura');
 view('header', ['titulo' => '', 'descricao' => null]);
 ?>
 <main id="conteudo" tabindex="-1">
-  <section class="abertura<?= $foto ? ' abertura-foto' : '' ?>"<?= $foto ? ' style="--abertura-imagem: url(\'' . e($foto) . '\')"' : '' ?>>
+  <section class="abertura<?= $foto ? ' abertura-foto' : '' ?>">
+    <?php if ($foto): ?>
+      <img class="abertura-img" src="<?= e($foto) ?>" alt="" width="1101" height="513" fetchpriority="high">
+    <?php endif; ?>
     <div class="largura abertura-grade">
       <div class="abertura-texto">
         <p class="abertura-local"><?= e(cartorio('cidade')) ?></p>

@@ -1,6 +1,6 @@
 # Instalação no servidor — passo a passo
 
-Guia para colocar o site em **https://www.cartoriosjcampestre.com.br** num servidor Debian ou Ubuntu que já tem PHP 8.3 e MySQL/MariaDB. Os comandos usam `sudo`; rode cada bloco e confira a saída antes de seguir.
+Guia para colocar o site em **https://www.cartoriosjcampestre.com.br** num servidor Debian ou Ubuntu que já tem PHP 8.3 e MySQL/MariaDB. O servidor do cartório usa **Nginx**, que é o caminho principal deste guia; as instruções para Apache ficam logo depois, caso um dia seja preciso trocar. Os comandos usam `sudo`; rode cada bloco e confira a saída antes de seguir.
 
 Em todo o guia, o site fica em `/var/www/cartorio`. Se escolher outra pasta, troque esse caminho nos comandos e no arquivo do servidor web.
 
@@ -15,12 +15,12 @@ Em todo o guia, o site fica em `/var/www/cartorio`. Se escolher outra pasta, tro
   dig +short cartoriosjcampestre.com.br
   dig +short www.cartoriosjcampestre.com.br
   ```
-- **Portas 80 e 443** liberadas no firewall (`sudo ufw allow 'Apache Full'` ou `sudo ufw allow 'Nginx Full'`, se usar ufw).
-- **Qual servidor web já está rodando?**
+- **Portas 80 e 443** liberadas no firewall (`sudo ufw allow 'Nginx Full'`, se usar ufw; no Apache, `'Apache Full'`).
+- **O servidor já hospeda outros sites.** Este guia cria um arquivo próprio para o cartório e não mexe nos demais. **Não** apague nem desative o site padrão (`default`) nem os arquivos dos outros sites. Antes do passo 6, confira se nenhum outro site já usa o domínio do cartório:
   ```
-  systemctl is-active apache2 nginx
+  sudo nginx -T 2>/dev/null | grep -n "cartoriosjcampestre"
   ```
-  Use o que estiver `active` e siga só a parte dele no passo 6. Se o servidor já hospeda outros sites, **não** desative o site padrão nem mexa nos arquivos deles.
+  Não deve aparecer nada. Se aparecer, me mostre a saída antes de seguir.
 
 ## 1. Copiar os arquivos
 
@@ -86,8 +86,8 @@ sudo php bin/configurar.php
 ```
 O script pergunta o endereço do site, os dados do banco e a forma de envio de e-mail. Ele gera a chave secreta sozinho, testa a conexão com o banco antes de gravar e deixa `debug` desligado.
 
-- **E-mail `mail`**: o servidor envia pelo Postfix/Exim local. Use se o e-mail do domínio está neste servidor.
-- **E-mail `smtp`**: use se o e-mail é de um provedor (Locaweb, Hostinger, Google, Microsoft etc.). Tenha em mãos o servidor SMTP, a porta e a senha da caixa `nao-responda@`.
+- **E-mail**: o script já sugere o SMTP do cartório (`mail.cartoriosjcampestre.com.br`, porta 587 com `tls`, usuário `nao-responda@cartoriosjcampestre.com.br`). Aperte Enter para aceitar e digite a senha da caixa `nao-responda@` quando pedir. Ela não aparece na tela e fica só no `app/config.php` do servidor, nunca no GitHub.
+- Se o envio falhar no passo 10, rode o script de novo e escolha `ssl` com a porta 465.
 
 Para mudar algo depois, rode o script de novo (ele guarda uma cópia do arquivo anterior) ou edite `app/config.php`. As explicações de cada opção estão em `app/config.example.php`.
 
@@ -104,18 +104,7 @@ Assim o site só consegue gravar em `storage/` (anexos e logs), e só o servidor
 
 ## 6. Servidor web
 
-### 6A. Apache
-
-```
-sudo cp docs/apache.conf.exemplo /etc/apache2/sites-available/cartorio.conf
-sudo a2enmod rewrite headers
-sudo a2ensite cartorio
-sudo apache2ctl configtest          # deve responder "Syntax OK"
-sudo systemctl reload apache2
-```
-Os redirecionamentos para HTTPS e para o endereço com `www` já estão em `public/.htaccess`. Eles só passam a valer depois do passo 8.
-
-### 6B. Nginx
+### 6A. Nginx (servidor do cartório)
 
 O arquivo `docs/nginx.conf.exemplo` já tem a versão final, com HTTPS. Como o certificado ainda não existe, comece **só com o primeiro bloco `server`** (porta 80):
 
@@ -127,9 +116,27 @@ sudo systemctl reload nginx
 ```
 O arquivo completo é instalado no passo 8, depois do certificado.
 
+### 6B. Apache (alternativa)
+
+```
+sudo cp docs/apache.conf.exemplo /etc/apache2/sites-available/cartorio.conf
+sudo a2enmod rewrite headers
+sudo a2ensite cartorio
+sudo apache2ctl configtest          # deve responder "Syntax OK"
+sudo systemctl reload apache2
+```
+Os redirecionamentos para HTTPS e para o endereço com `www` já estão em `public/.htaccess`. Eles só passam a valer depois do passo 8.
+
 ## 7. Limite de envio de anexos no PHP
 
 Os formulários aceitam anexos de até 5 MB. O PHP vem com limite de 2 MB, então crie um arquivo de ajuste.
+
+Com **Nginx (PHP-FPM)**:
+```
+printf 'upload_max_filesize = 6M\npost_max_size = 8M\n' | sudo tee /etc/php/8.3/fpm/conf.d/99-cartorio.ini
+sudo systemctl restart php8.3-fpm
+```
+Esse ajuste vale para todos os sites PHP do servidor; ele só aumenta o limite de envio e não muda mais nada.
 
 Com **Apache**:
 ```
@@ -137,22 +144,9 @@ printf 'upload_max_filesize = 6M\npost_max_size = 8M\n' | sudo tee /etc/php/8.3/
 sudo systemctl reload apache2
 ```
 
-Com **Nginx (PHP-FPM)**:
-```
-printf 'upload_max_filesize = 6M\npost_max_size = 8M\n' | sudo tee /etc/php/8.3/fpm/conf.d/99-cartorio.ini
-sudo systemctl restart php8.3-fpm
-```
-
 ## 8. HTTPS com Let's Encrypt
 
 O certificado precisa cobrir os dois endereços (com e sem `www`).
-
-### Com Apache
-```
-sudo apt install certbot python3-certbot-apache
-sudo certbot --apache -d www.cartoriosjcampestre.com.br -d cartoriosjcampestre.com.br
-```
-Informe um e-mail para avisos de vencimento (por exemplo `notaria@cartoriosjcampestre.com.br`) e aceite os termos. O certbot cria sozinho a versão HTTPS do site.
 
 ### Com Nginx
 ```
@@ -167,6 +161,13 @@ sudo cp docs/nginx.conf.exemplo /etc/nginx/sites-available/cartorio
 sudo nginx -t
 sudo systemctl reload nginx
 ```
+
+### Com Apache (alternativa)
+```
+sudo apt install certbot python3-certbot-apache
+sudo certbot --apache -d www.cartoriosjcampestre.com.br -d cartoriosjcampestre.com.br
+```
+Informe um e-mail para avisos de vencimento (por exemplo `notaria@cartoriosjcampestre.com.br`) e aceite os termos. O certbot cria sozinho a versão HTTPS do site.
 
 ### Renovação (Apache e Nginx)
 O certificado vale 90 dias e o certbot renova sozinho. Para testar a renovação sem trocar nada:
@@ -189,6 +190,11 @@ Rode os scripts de `bin/` como `www-data` (`sudo -u www-data ...`). Assim, arqui
 sudo -u www-data php bin/verificar.php --online
 ```
 O script confere o PHP, o `config.php`, o banco, o administrador, as pastas de gravação e, com `--online`, o HTTPS, os redirecionamentos e se algum arquivo interno está exposto. Ele diz o que corrigir em cada falha.
+
+Para testar o envio de e-mail, troque pelo seu endereço:
+```
+sudo -u www-data php bin/verificar.php --testar-email=seu@email.com.br
+```
 
 O aviso sobre `upload_max_filesize` pode aparecer mesmo depois do passo 7: o PHP do terminal usa outro `php.ini`. O que vale para o site é o do passo 7.
 

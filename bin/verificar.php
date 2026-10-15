@@ -2,6 +2,7 @@
 // Confere se a instalação está pronta e diz o que falta.
 // Uso:   php bin/verificar.php            (verificações locais)
 //        php bin/verificar.php --online   (também acessa o site pela internet)
+//        php bin/verificar.php --testar-email=seu@email.com.br   (envia um e-mail de teste)
 // Para conferir as permissões como o servidor web vê:
 //        sudo -u www-data php bin/verificar.php
 declare(strict_types=1);
@@ -136,6 +137,23 @@ if (in_array('--online', $argv, true)) {
         [$c] = $status($base . $proibido);
         $c === 200 ? falha("$proibido está acessível pela internet", 'a raiz do site precisa ser a pasta public') : ok("$proibido não está exposto");
     }
+}
+
+foreach ($argv as $arg) {
+    if (!str_starts_with($arg, '--testar-email=')) {
+        continue;
+    }
+    $destino = substr($arg, strlen('--testar-email='));
+    echo "\nE-mail de teste\n";
+    if (!filter_var($destino, FILTER_VALIDATE_EMAIL)) {
+        falha("endereço inválido: $destino");
+        continue;
+    }
+    $enviado = enviar_email($destino, 'Teste do site do cartório',
+        "Este é um e-mail de teste enviado por bin/verificar.php em " . date('d/m/Y H:i') . ".\nSe chegou, o envio de e-mails do site está funcionando.");
+    $enviado
+        ? ok("e-mail aceito pelo servidor para $destino (confira a caixa de entrada e o spam)")
+        : falha('o envio falhou', 'veja storage/logs/php-error.log; confira senha, porta e criptografia (587/tls ou 465/ssl) com php bin/configurar.php');
 }
 
 echo "\n";
