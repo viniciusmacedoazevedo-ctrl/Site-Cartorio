@@ -9,6 +9,7 @@
 return [
     [
         'area' => 'Tabelionato de Notas',
+        'icone' => 'notas',
         'resumo' => 'Atos com fé pública que formalizam a vontade das partes.',
         'itens' => [
             [
@@ -67,6 +68,7 @@ return [
     ],
     [
         'area' => 'Registro Civil das Pessoas Naturais',
+        'icone' => 'civil',
         'resumo' => 'Os registros que acompanham a vida de cada pessoa.',
         'itens' => [
             [
@@ -118,6 +120,7 @@ return [
     ],
     [
         'area' => 'Protesto de Títulos',
+        'icone' => 'protesto',
         'resumo' => 'Cobrança formal de dívidas e consulta de pendências.',
         'itens' => [
             [
@@ -135,6 +138,7 @@ return [
     ],
     [
         'area' => 'Registro de Imóveis',
+        'icone' => 'imoveis',
         'resumo' => 'Garante a propriedade e a segurança dos negócios com imóveis.',
         'itens' => [
             [
@@ -152,6 +156,7 @@ return [
     ],
     [
         'area' => 'Títulos e Documentos e Pessoas Jurídicas',
+        'icone' => 'titulos',
         'resumo' => 'Dá data certa e publicidade a documentos e constitui associações e entidades.',
         'itens' => [
             [
@@ -168,6 +173,7 @@ return [
     ],
     [
         'area' => 'Certificação Digital',
+        'icone' => 'certificado',
         'resumo' => 'Sua assinatura válida em documentos eletrônicos.',
         'itens' => [
             [

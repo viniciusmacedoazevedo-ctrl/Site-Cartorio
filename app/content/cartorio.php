@@ -57,5 +57,8 @@ return [
         ['Portal do Cidadão RN', 'https://www.cidadao.rn.gov.br/'],
         ['Prefeitura de São José do Campestre', 'https://saojosedocampestre.rn.gov.br/'],
     ],
+    // Foto da abertura da página inicial (opcional). Use uma foto real da serventia,
+    // horizontal (16:9), em public/assets/img/. Ex.: '/assets/img/fachada.jpg'. null = fundo verde.
+    'foto_abertura' => null,
     'politicas_atualizadas_em' => '14 de outubro de 2026',
 ];

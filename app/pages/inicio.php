@@ -2,18 +2,19 @@
 $servicos = require APP_DIR . '/content/servicos.php';
 $agora = atendimento_agora();
 $tabela = cartorio('tabela_custas');
+$foto = cartorio('foto_abertura');
 view('header', ['titulo' => '', 'descricao' => null]);
 ?>
 <main id="conteudo" tabindex="-1">
-  <section class="abertura">
+  <section class="abertura<?= $foto ? ' abertura-foto' : '' ?>"<?= $foto ? ' style="--abertura-imagem: url(\'' . e($foto) . '\')"' : '' ?>>
     <div class="largura abertura-grade">
       <div class="abertura-texto">
         <p class="abertura-local"><?= e(cartorio('cidade')) ?></p>
         <h1>Cartório de São José do Campestre</h1>
         <p class="lead">Tabelionato de notas e de protesto, registro civil, registro de imóveis, títulos e documentos e pessoas jurídicas, e certificado digital. Veja o que cada serviço exige antes de vir ao cartório.</p>
         <div class="acoes">
-          <a class="botao botao-primario" href="/servicos">Ver serviços e documentos</a>
-          <a class="botao botao-secundario" href="/emolumentos">Emolumentos e gratuidades</a>
+          <a class="botao botao-claro" href="/servicos">Ver serviços e documentos</a>
+          <a class="botao botao-contorno-claro" href="/emolumentos">Emolumentos e gratuidades</a>
         </div>
       </div>
       <aside class="ficha" aria-label="Atendimento presencial">
@@ -53,23 +54,52 @@ view('header', ['titulo' => '', 'descricao' => null]);
         <h2 id="t-servicos">Carta de serviços</h2>
         <p>Cada serviço traz uma descrição curta e a lista de documentos obrigatórios.</p>
       </div>
-      <div class="areas">
-        <?php foreach ($servicos as $grupo): ?>
-          <section class="area">
-            <h3><?= e($grupo['area']) ?></h3>
+      <ul class="servicos-grade">
+        <?php foreach ($servicos as $i => $grupo): ?>
+          <li class="card-servico">
+            <span class="card-servico-icone"><?php view('icone', ['nome' => $grupo['icone'] ?? '']); ?></span>
+            <h3><a href="/servicos#area-<?= $i ?>"><?= e($grupo['area']) ?></a></h3>
+            <p><?= e($grupo['resumo']) ?></p>
             <ul>
               <?php foreach ($grupo['itens'] as $s): ?>
                 <li><a href="/servicos#<?= e($s['slug']) ?>"><?= e($s['nome']) ?></a></li>
               <?php endforeach; ?>
             </ul>
-          </section>
+          </li>
         <?php endforeach; ?>
-      </div>
-      <p class="secao-nota">Também é possível <a href="/pedido">enviar uma solicitação ou agendar atendimento pela internet</a>.</p>
+      </ul>
     </div>
   </section>
 
-  <section class="secao secao-papel" aria-labelledby="t-acesso">
+  <section class="secao secao-papel" aria-labelledby="t-solicitar">
+    <div class="largura">
+      <div class="secao-cabeca">
+        <h2 id="t-solicitar">Como adiantar seu atendimento pela internet</h2>
+        <p>O ato é praticado no cartório, mas você pode enviar o pedido ou sugerir uma data antes de vir.</p>
+      </div>
+      <ol class="passos passos-4">
+        <li>
+          <h3>Confira os documentos</h3>
+          <p>Na <a href="/servicos">Carta de Serviços</a>, veja o que cada serviço exige.</p>
+        </li>
+        <li>
+          <h3>Envie o pedido ou agende</h3>
+          <p>Preencha a <a href="/pedido">solicitação online</a>. O agendamento é confirmado pelo cartório por e-mail ou telefone.</p>
+        </li>
+        <li>
+          <h3>Guarde o protocolo</h3>
+          <p>Você recebe um número de protocolo e um código de 4 letras, na tela e por e-mail, se informar um.</p>
+        </li>
+        <li>
+          <h3>Acompanhe a situação</h3>
+          <p>Use o protocolo e o código em <a href="/protocolo">Consultar protocolo</a>.</p>
+        </li>
+      </ol>
+      <p class="secao-acao"><a class="botao botao-primario" href="/pedido">Fazer uma solicitação</a></p>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="t-acesso">
     <div class="largura">
       <div class="secao-cabeca">
         <h2 id="t-acesso">Informação ao cidadão</h2>
