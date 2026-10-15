@@ -26,7 +26,7 @@ view('header', ['titulo' => 'Solicitação e agendamento online', 'descricao' =>
       <?= campo('pedido', 'servico', $valores, $erros) ?>
       <aside class="docs-servico" id="docs-servico" aria-live="polite" hidden data-docs="<?= e(json_encode($mapaDocs, JSON_UNESCAPED_UNICODE)) ?>"><h3>Documentos obrigatórios</h3><ul></ul></aside>
       <?= campo('pedido', 'modalidade', $valores + ['modalidade' => 'Pedido online'], $erros) ?>
-      <div class="linha-2" data-agendamento>
+      <div class="agendamento" data-agendamento data-feriados="<?= e(json_encode(feriados_agendamento(), JSON_UNESCAPED_UNICODE)) ?>">
         <?= campo('pedido', 'data_preferida', $valores, $erros) ?>
         <?= campo('pedido', 'periodo', $valores, $erros) ?>
       </div>

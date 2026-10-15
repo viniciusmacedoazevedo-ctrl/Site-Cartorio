@@ -38,23 +38,58 @@ function servicos_lista(): array
 }
 
 /**
- * Próximos dias úteis (segunda a sexta) para o agendamento, a partir de amanhã.
- * Sábados e domingos ficam de fora da lista, então não podem ser escolhidos.
- * Chave no formato Y-m-d (gravada no registro); rótulo para o cidadão.
+ * Feriados nacionais de datas fixas (Lei nº 662/1949, com a redação da Lei nº 10.607/2002;
+ * Lei nº 6.802/1980; Lei nº 14.759/2023), mais os dias de 'feriados_extras' em app/content/cartorio.php.
  */
-function dias_uteis_agendamento(int $quantos = 30): array
+function feriados(int $ano): array
+{
+    $f = [
+        "$ano-01-01" => 'Confraternização Universal',
+        "$ano-04-21" => 'Tiradentes',
+        "$ano-05-01" => 'Dia do Trabalho',
+        "$ano-09-07" => 'Independência do Brasil',
+        "$ano-10-12" => 'Nossa Senhora Aparecida',
+        "$ano-11-02" => 'Finados',
+        "$ano-11-15" => 'Proclamação da República',
+        "$ano-11-20" => 'Dia Nacional de Zumbi e da Consciência Negra',
+        "$ano-12-25" => 'Natal',
+    ];
+    foreach ((array) cartorio('feriados_extras') as $data => $nome) {
+        if (str_starts_with((string) $data, "$ano-")) {
+            $f[$data] = $nome;
+        }
+    }
+    return $f;
+}
+
+/**
+ * Próximos dias úteis para o agendamento, a partir de amanhã: sem sábados, domingos e feriados.
+ * Chave no formato Y-m-d (gravada no registro); rótulo para o cidadão.
+ * O servidor só aceita datas desta lista; o calendário da página usa a mesma lista.
+ */
+function dias_uteis_agendamento(int $quantos = 45): array
 {
     $semana = [1 => 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira'];
     $dias = ['' => 'Sem preferência'];
+    $feriados = [];
     $d = new DateTimeImmutable('tomorrow');
     while (count($dias) <= $quantos) {
+        $ano = (int) $d->format('Y');
+        $feriados[$ano] ??= feriados($ano);
         $n = (int) $d->format('N');
-        if ($n <= 5) {
+        if ($n <= 5 && !isset($feriados[$ano][$d->format('Y-m-d')])) {
             $dias[$d->format('Y-m-d')] = $semana[$n] . ', ' . $d->format('d/m/Y');
         }
         $d = $d->modify('+1 day');
     }
     return $dias;
+}
+
+/** Feriados entre hoje e a última data de agendamento, para o calendário mostrar o motivo. */
+function feriados_agendamento(): array
+{
+    $ano = (int) date('Y');
+    return feriados($ano) + feriados($ano + 1);
 }
 
 /**
@@ -74,7 +109,7 @@ function formularios(): array
                     'Pedido online' => 'Pedido online: o cartório responde por e-mail ou telefone',
                     'Agendamento presencial' => 'Agendar atendimento no cartório',
                 ], 'required' => true],
-                'data_preferida' => ['label' => 'Data preferida', 'type' => 'select', 'options' => dias_uteis_agendamento(), 'hint' => 'Atendimento de segunda a sexta. O cartório confirma a data com você.'],
+                'data_preferida' => ['label' => 'Data preferida', 'type' => 'select', 'options' => dias_uteis_agendamento(), 'hint' => 'Atendimento de segunda a sexta, exceto feriados. O cartório confirma a data com você.'],
                 'periodo' => ['label' => 'Período', 'type' => 'select', 'options' => ['' => 'Sem preferência', 'Manhã' => 'Manhã (8h às 12h)', 'Tarde' => 'Tarde (13h às 17h)']],
                 'nome' => ['label' => 'Nome completo', 'type' => 'text', 'required' => true, 'max' => 150, 'autocomplete' => 'name'],
                 'cpf' => ['label' => 'CPF', 'type' => 'cpf', 'hint' => 'Ajuda a localizar seus registros.'],

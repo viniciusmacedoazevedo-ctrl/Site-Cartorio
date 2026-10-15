@@ -162,7 +162,7 @@ a:hover { text-decoration-thickness: 2px; }
 .abertura .lead { color: #C9D9D5; }
 .abertura-grade { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(300px, 1fr); gap: 56px; align-items: start; }
 .abertura-local { font-weight: 700; color: var(--ouro-claro); margin-bottom: .6em; }
-.abertura h1 { max-width: 13em; }
+.abertura h1 { max-width: 15em; }
 .ficha {
   color: var(--tinta); box-shadow: var(--sombra-flutuante);
   background: var(--branco); border: 1px solid var(--linha); border-left: 6px solid var(--ouro);
@@ -651,13 +651,24 @@ html.alto-contraste .carta-indice-pedido { background: #FFE600; color: #000 !imp
 
 /* ===== Ajustes de formatação (out/2026) ===== */
 
-/* Parágrafos justificados, com hifenização, onde a coluna é larga o bastante */
-@media (min-width: 600px) {
-  main p, .texto-legal li, .acesso span { text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
-  .ficha-estado, .secao-acao, .acoes, .atualizado, .card-servico > p, .atalhos-grade span { text-align: left; hyphens: manual; }
-}
-.pagina .lead, .secao-cabeca { max-width: 48em; }
+/* Medida de leitura única: todo bloco de texto das páginas internas termina na mesma margem direita */
+:root { --medida: 54rem; }
+.pagina .lead, .secao-cabeca, .texto-legal, .texto-estreito, .ficha-oficial, .tabela-download, .vazio,
+.pagina-cabeca > p, .lembretes { max-width: var(--medida); }
+.pagina .texto-legal .tabela, .pagina .texto-estreito .tabela { width: 100%; }
+.conformidade-cabeca { max-width: var(--medida); }
+.conformidade-cabeca .lead { max-width: none; }
 .pagina-cabeca .lead { margin-bottom: .6em; }
+
+/* Texto: quebra de linha equilibrada, sem hífen; justificado só em telas largas */
+h1, h2, h3 { text-wrap: balance; }
+main p, main li { text-wrap: pretty; hyphens: manual; -webkit-hyphens: manual; }
+@media (min-width: 900px) {
+  main p, .texto-legal li, .acesso span { text-align: justify; }
+  .ficha-estado, .secao-acao, .acoes, .atualizado, .card-servico > p, .atalhos-grade span, .calendario p, .dica, .erro,
+  .abertura p, .form-layout .pagina-cabeca p, .form-layout .pagina-cabeca li, .formulario p, .passos p, .acesso span,
+  .ouvidoria-ilustracao figcaption, .recibo p, .servico-texto p, .servico-docs li, .conformidade-cartao p { text-align: left; }
+}
 
 /* Ficha do topo: horário numa linha só */
 .ficha dl div { grid-template-columns: 5.4em 1fr; }
@@ -697,3 +708,32 @@ html.alto-contraste .abertura-fundo { display: none; }
 .ouvidoria-ilustracao figcaption { margin-top: 8px; color: var(--tinta-2); font-size: .92rem; }
 @media (max-width: 900px) { .ouvidoria-ilustracao { display: none; } }
 html.alto-contraste .ouvidoria-ilustracao { display: none; }
+
+/* ===== Agendamento: calendário ===== */
+.agendamento { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 0 20px; align-items: start; }
+.agendamento[hidden] { display: none; }
+@media (max-width: 560px) { .agendamento { grid-template-columns: 1fr; } }
+.calendario { border: 2px solid var(--linha-forte); border-radius: var(--raio); padding: 12px; background: var(--branco); max-width: 360px; }
+.calendario-topo { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.calendario-mes { margin: 0; font: 700 1rem var(--fonte-titulo); }
+.calendario-nav { min-width: 44px; min-height: 44px; border: 1px solid var(--linha); border-radius: var(--raio); background: var(--papel); color: var(--verde-escuro); font: 700 1.3rem/1 var(--fonte-texto); cursor: pointer; }
+.calendario-nav:disabled { opacity: .35; cursor: default; }
+.calendario-grade { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.calendario-grade th { font: 700 .78rem var(--fonte-texto); color: var(--tinta-2); padding: 4px 0; }
+.calendario-grade td { padding: 2px; text-align: center; }
+.calendario-dia { width: 100%; aspect-ratio: 1; min-height: 38px; border: 0; border-radius: 50%; background: var(--verde-claro); color: var(--verde-escuro); font: 700 .92rem var(--fonte-texto); cursor: pointer; }
+.calendario-dia:hover:not([disabled]) { background: #CFE3DE; }
+.calendario-dia.escolhido { background: var(--verde); color: #fff; }
+.calendario-dia[disabled] { background: transparent; color: #9AA9A6; font-weight: 400; cursor: not-allowed; text-decoration: line-through; text-decoration-color: #C3CDCB; }
+.calendario-dia.feriado { color: #9A6B00; text-decoration: none; background: #FFF4D6; }
+.calendario-escolha { margin: 10px 0 4px; font-size: .92rem; }
+.calendario-escolha .botao-texto { min-height: 0; padding: 0 0 0 6px; font-size: .9rem; border: 0; cursor: pointer; }
+.calendario-legenda { margin: 6px 0 0; font-size: .78rem; color: var(--tinta-2); display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.calendario-legenda span { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.calendario-chip { display: inline-block; width: 12px; height: 12px; border-radius: 50%; }
+.calendario-chip-livre { background: var(--verde-claro); border: 1px solid var(--verde); }
+.calendario-chip-feriado { background: #FFF4D6; border: 1px solid #D6B04A; }
+.calendario-chip-fechado { background: transparent; border: 1px solid #9AA9A6; }
+html.alto-contraste .calendario, html.alto-contraste .calendario-dia { background: #000; color: #FFE600; border-color: #fff; }
+html.alto-contraste .calendario-dia.escolhido { background: #FFE600; color: #000; }
+html.alto-contraste .calendario-dia[disabled] { color: #888; }

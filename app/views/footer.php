@@ -82,6 +82,6 @@
   <button type="button" class="botao botao-claro" data-aceitar-cookies>Aceitar e fechar</button>
 </div>
 
-<script src="/assets/js/site.js?v=2" defer></script>
+<script src="/assets/js/site.js?v=4" defer></script>
 </body>
 </html>
