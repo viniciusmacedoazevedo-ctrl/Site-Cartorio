@@ -1,0 +1,26 @@
+-- Esquema equivalente para SQLite, usado só em testes locais.
+CREATE TABLE IF NOT EXISTS registros (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  protocolo TEXT NOT NULL UNIQUE, codigo_acesso TEXT NOT NULL, formulario TEXT NOT NULL,
+  tipo TEXT NOT NULL DEFAULT '', nome TEXT NOT NULL DEFAULT '', cpf TEXT NOT NULL DEFAULT '',
+  email TEXT NOT NULL DEFAULT '', telefone TEXT NOT NULL DEFAULT '', mensagem TEXT NOT NULL,
+  dados_json TEXT, status TEXT NOT NULL DEFAULT 'Novo', retorno_publico TEXT, responsavel_id INTEGER,
+  ip TEXT NOT NULL DEFAULT '', user_agent TEXT NOT NULL DEFAULT '', criado_em TEXT NOT NULL, atualizado_em TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS anexos (
+  id INTEGER PRIMARY KEY AUTOINCREMENT, registro_id INTEGER NOT NULL REFERENCES registros(id) ON DELETE CASCADE,
+  arquivo TEXT NOT NULL, nome_original TEXT NOT NULL, mime TEXT NOT NULL, tamanho INTEGER NOT NULL, criado_em TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS usuarios (
+  id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL, email TEXT NOT NULL UNIQUE, senha_hash TEXT NOT NULL,
+  perfil TEXT NOT NULL DEFAULT 'atendente', ativo INTEGER NOT NULL DEFAULT 1, tentativas INTEGER NOT NULL DEFAULT 0,
+  bloqueado_ate TEXT, ultimo_login TEXT, criado_em TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS historico (
+  id INTEGER PRIMARY KEY AUTOINCREMENT, registro_id INTEGER NOT NULL REFERENCES registros(id) ON DELETE CASCADE,
+  usuario_id INTEGER, acao TEXT NOT NULL, detalhe TEXT, criado_em TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS contadores (prefixo TEXT NOT NULL, ano INTEGER NOT NULL, ultimo INTEGER NOT NULL, PRIMARY KEY (prefixo, ano));
+CREATE TABLE IF NOT EXISTS limites (id INTEGER PRIMARY KEY AUTOINCREMENT, ip_hash TEXT NOT NULL, acao TEXT NOT NULL, criado_em TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS auditoria (id INTEGER PRIMARY KEY AUTOINCREMENT, usuario_id INTEGER, acao TEXT NOT NULL, alvo TEXT NOT NULL DEFAULT '', ip TEXT NOT NULL DEFAULT '', criado_em TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS transparencia (id INTEGER PRIMARY KEY AUTOINCREMENT, ano INTEGER NOT NULL, mes INTEGER NOT NULL, valores_json TEXT NOT NULL, observacao TEXT, arquivo TEXT, arquivo_nome TEXT, atualizado_por INTEGER, atualizado_em TEXT NOT NULL, UNIQUE (ano, mes));

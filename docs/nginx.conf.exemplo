@@ -1,0 +1,25 @@
+# Exemplo de bloco server para Nginx + PHP-FPM 8.3
+server {
+    listen 80;
+    server_name cartoriosjcampestre.com.br www.cartoriosjcampestre.com.br;
+    return 301 https://www.cartoriosjcampestre.com.br$request_uri;
+}
+server {
+    listen 443 ssl http2;
+    server_name www.cartoriosjcampestre.com.br;
+    ssl_certificate     /etc/letsencrypt/live/www.cartoriosjcampestre.com.br/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/www.cartoriosjcampestre.com.br/privkey.pem;
+
+    root /var/www/cartorio/public;      # só a pasta public fica exposta
+    index index.php;
+    client_max_body_size 6m;            # anexos de até 5 MB
+
+    location / { try_files $uri /index.php?$query_string; }
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/index.php;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+    }
+    location ~* \.(css|js|png|svg|woff2)$ { expires 7d; }
+    location ~ /\. { deny all; }
+}
