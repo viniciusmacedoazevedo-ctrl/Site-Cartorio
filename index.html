@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cartório [Nome] — Notas e Registros</title>
+  <meta name="description" content="Cartório [Nome]: escrituras, procurações, reconhecimento de firma, autenticações, registro civil e certidões. Atendimento presencial e digital.">
+  <meta name="theme-color" content="#14213d">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="topbar">
+    <div class="wrap topbar__inner">
+      <a class="brand" href="#inicio" aria-label="Cartório [Nome], página inicial">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 4 9v2h24V9L16 3Zm-9 10v11h3V13H7Zm7 0v11h4V13h-4Zm8 0v11h3V13h-3ZM4 26v3h24v-3H4Z"/></svg>
+        <span><strong>Cartório [Nome]</strong><small>Tabelionato de Notas e Registro Civil</small></span>
+      </a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+      <nav id="nav" class="nav" aria-label="Principal">
+        <a href="#servicos">Serviços</a>
+        <a href="#documentos">Documentos</a>
+        <a href="#atendimento">Atendimento</a>
+        <a href="#duvidas">Dúvidas</a>
+        <a href="#contato" class="btn btn--small">Fale conosco</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section id="inicio" class="hero">
+      <div class="wrap hero__grid">
+        <div>
+          <p class="eyebrow">[Cidade] — [UF]</p>
+          <h1>Seus documentos com segurança jurídica e atendimento sem complicação.</h1>
+          <p class="lead">Escrituras, procurações, reconhecimento de firma, autenticações, certidões e registro civil. Presencialmente ou pelo e-Notariado.</p>
+          <div class="hero__actions">
+            <a class="btn" href="https://wa.me/550000000000" rel="noopener">Atendimento pelo WhatsApp</a>
+            <a class="btn btn--ghost" href="#documentos">Ver documentos necessários</a>
+          </div>
+        </div>
+        <aside class="card hours" aria-labelledby="h-hours">
+          <h2 id="h-hours">Horário de atendimento</h2>
+          <dl>
+            <div><dt>Segunda a sexta</dt><dd>9h às 17h</dd></div>
+            <div><dt>Sábado</dt><dd>9h às 12h <span class="muted">(registro civil)</span></dd></div>
+            <div><dt>Domingos e feriados</dt><dd>Plantão de óbitos</dd></div>
+          </dl>
+          <p class="status" data-status aria-live="polite"></p>
+          <p class="muted small">[Rua Exemplo, 123 — Centro]<br>[Cidade]/[UF] · CEP [00000-000]</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="servicos" class="section">
+      <div class="wrap">
+        <header class="section__head">
+          <h2>Serviços</h2>
+          <p>Atos notariais e de registro civil com orientação do início ao fim.</p>
+        </header>
+        <div class="services">
+          <article class="service">
+            <h3>Escrituras</h3>
+            <p>Compra e venda, doação, inventário e partilha, divórcio consensual, união estável e pacto antenupcial.</p>
+          </article>
+          <article class="service">
+            <h3>Procurações</h3>
+            <p>Públicas, para fins gerais ou específicos, inclusive previdenciárias e para venda de imóveis e veículos.</p>
+          </article>
+          <article class="service">
+            <h3>Reconhecimento de firma</h3>
+            <p>Por semelhança ou por autenticidade (exigida em transferência de veículos). Abertura de ficha de assinatura.</p>
+          </article>
+          <article class="service">
+            <h3>Autenticação de cópias</h3>
+            <p>Cópias autenticadas com o mesmo valor do original, incluindo a autenticação digital de documentos.</p>
+          </article>
+          <article class="service">
+            <h3>Registro civil</h3>
+            <p>Nascimento, casamento, óbito, habilitação de casamento e averbações. Registro de nascimento é gratuito.</p>
+          </article>
+          <article class="service">
+            <h3>Certidões</h3>
+            <p>Segundas vias de nascimento, casamento e óbito, em papel ou digital, inclusive com inteiro teor.</p>
+          </article>
+          <article class="service">
+            <h3>Atas notariais</h3>
+            <p>Constatação de fatos, conversas, páginas da internet e mensagens para uso como prova.</p>
+          </article>
+          <article class="service">
+            <h3>Testamentos</h3>
+            <p>Testamento público com orientação do tabelião e registro na Central Notarial de Serviços Eletrônicos.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="documentos" class="section section--alt">
+      <div class="wrap">
+        <header class="section__head">
+          <h2>Documentos necessários</h2>
+          <p>Traga os originais. Documentos de identificação devem estar dentro da validade.</p>
+        </header>
+        <div class="tabs" data-tabs>
+          <div class="tabs__list" role="tablist" aria-label="Tipos de serviço">
+            <button role="tab" id="t-firma" aria-controls="p-firma" aria-selected="true">Firma</button>
+            <button role="tab" id="t-proc" aria-controls="p-proc" aria-selected="false" tabindex="-1">Procuração</button>
+            <button role="tab" id="t-escr" aria-controls="p-escr" aria-selected="false" tabindex="-1">Escritura de imóvel</button>
+            <button role="tab" id="t-nasc" aria-controls="p-nasc" aria-selected="false" tabindex="-1">Nascimento</button>
+            <button role="tab" id="t-cas" aria-controls="p-cas" aria-selected="false" tabindex="-1">Casamento</button>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="p-firma" aria-labelledby="t-firma">
+            <ul class="check">
+              <li>Documento de identidade original com foto (RG, CNH ou passaporte)</li>
+              <li>CPF, caso não conste no documento de identidade</li>
+              <li>Comprovante de endereço recente</li>
+              <li>Para autenticidade: presença do signatário e o documento a ser assinado</li>
+            </ul>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="p-proc" aria-labelledby="t-proc" hidden>
+            <ul class="check">
+              <li>Documento de identidade e CPF de quem outorga (dá os poderes)</li>
+              <li>Nome completo, CPF, estado civil, profissão e endereço do procurador</li>
+              <li>Certidão de casamento, se casado(a)</li>
+              <li>Dados do bem ou do processo, quando a procuração for específica</li>
+            </ul>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="p-escr" aria-labelledby="t-escr" hidden>
+            <ul class="check">
+              <li>Documentos pessoais de compradores e vendedores e certidões de estado civil</li>
+              <li>Matrícula atualizada do imóvel (validade de 30 dias)</li>
+              <li>Guia do ITBI paga e certidão negativa de débitos municipais</li>
+              <li>Certidões dos vendedores: Justiça Estadual, Federal, Trabalhista e de protesto</li>
+            </ul>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="p-nasc" aria-labelledby="t-nasc" hidden>
+            <ul class="check">
+              <li>Declaração de Nascido Vivo (DNV) fornecida pela maternidade</li>
+              <li>Documento de identidade dos pais</li>
+              <li>Certidão de casamento dos pais, se forem casados</li>
+              <li>Se o pai não comparecer e os pais não forem casados: procuração ou termo de reconhecimento</li>
+            </ul>
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="p-cas" aria-labelledby="t-cas" hidden>
+            <ul class="check">
+              <li>Certidão de nascimento ou de casamento com averbação de divórcio, atualizada</li>
+              <li>Documento de identidade e comprovante de endereço dos noivos</li>
+              <li>Duas testemunhas maiores de idade com documento de identidade</li>
+              <li>Pacto antenupcial, se o regime escolhido não for a comunhão parcial</li>
+            </ul>
+          </div>
+        </div>
+        <p class="muted small note">A lista é orientativa. Cada caso pode exigir documentos adicionais; confirme com nossa equipe antes de vir.</p>
+      </div>
+    </section>
+
+    <section id="atendimento" class="section">
+      <div class="wrap">
+        <header class="section__head">
+          <h2>Como é o atendimento</h2>
+        </header>
+        <ol class="steps">
+          <li><h3>Fale com a gente</h3><p>Envie sua dúvida por WhatsApp ou e-mail. Informamos documentos e emolumentos.</p></li>
+          <li><h3>Envie os documentos</h3><p>Para escrituras e procurações, enviamos uma minuta para você conferir antes.</p></li>
+          <li><h3>Assine</h3><p>No cartório ou por videoconferência pelo e-Notariado, com certificado digital notarizado gratuito.</p></li>
+          <li><h3>Receba</h3><p>Retire o documento no balcão ou receba a versão digital com validade jurídica.</p></li>
+        </ol>
+        <div class="callout">
+          <div>
+            <h3>Ato digital pelo e-Notariado</h3>
+            <p>Escrituras e procurações podem ser feitas inteiramente online, conforme o Provimento nº 100/2020 do CNJ.</p>
+          </div>
+          <a class="btn btn--ghost" href="https://www.e-notariado.org.br" rel="noopener">Conhecer o e-Notariado</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="duvidas" class="section section--alt">
+      <div class="wrap wrap--narrow">
+        <header class="section__head">
+          <h2>Dúvidas frequentes</h2>
+        </header>
+        <details>
+          <summary>Quanto custa cada serviço?</summary>
+          <p>Os valores (emolumentos) são fixados por lei estadual e são os mesmos em todos os cartórios do estado. A tabela vigente fica disponível no balcão e pode ser solicitada por e-mail.</p>
+        </details>
+        <details>
+          <summary>Preciso agendar?</summary>
+          <p>Reconhecimento de firma, autenticações e certidões são feitos por ordem de chegada. Escrituras, testamentos e casamentos são agendados.</p>
+        </details>
+        <details>
+          <summary>Posso fazer a escritura em qualquer cartório de notas?</summary>
+          <p>Sim. A escolha do tabelião de notas é livre, independentemente de onde fica o imóvel ou de onde moram as partes.</p>
+        </details>
+        <details>
+          <summary>Quem tem direito à gratuidade?</summary>
+          <p>O registro de nascimento, o registro de óbito e as primeiras certidões correspondentes são gratuitos para todos. Outros atos podem ser gratuitos para quem comprovar hipossuficiência, nos termos da lei.</p>
+        </details>
+        <details>
+          <summary>Como peço uma segunda via de certidão sem sair de casa?</summary>
+          <p>Certidões de registro civil podem ser solicitadas pela Central de Informações do Registro Civil (CRC), com entrega digital ou pelos Correios.</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="contato" class="section">
+      <div class="wrap contact">
+        <div>
+          <h2>Contato</h2>
+          <ul class="contact__list">
+            <li><span>Telefone</span><a href="tel:+550000000000">([00]) 0000-0000</a></li>
+            <li><span>WhatsApp</span><a href="https://wa.me/550000000000" rel="noopener">([00]) 00000-0000</a></li>
+            <li><span>E-mail</span><a href="mailto:contato@exemplo.com.br">contato@exemplo.com.br</a></li>
+            <li><span>Endereço</span>[Rua Exemplo, 123 — Centro, Cidade/UF]</li>
+          </ul>
+          <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&query=Rua+Exemplo+123" rel="noopener">Abrir no mapa</a>
+        </div>
+        <form class="card form" data-form novalidate>
+          <h3>Envie sua mensagem</h3>
+          <label>Nome<input name="nome" autocomplete="name" required></label>
+          <label>Telefone ou e-mail<input name="contato" autocomplete="email" required></label>
+          <label>Serviço
+            <select name="servico">
+              <option>Escritura</option><option>Procuração</option><option>Reconhecimento de firma</option>
+              <option>Autenticação</option><option>Registro civil</option><option>Certidão</option><option>Outro</option>
+            </select>
+          </label>
+          <label>Mensagem<textarea name="mensagem" rows="4" required></textarea></label>
+          <label class="consent"><input type="checkbox" name="lgpd" required> Autorizo o uso dos meus dados para retorno deste contato, conforme a LGPD.</label>
+          <button class="btn" type="submit">Enviar pelo WhatsApp</button>
+          <p class="form__msg" data-form-msg aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <strong>Cartório [Nome]</strong>
+        <p>Tabelião: [Nome do Titular]<br>CNS: [00.000-0]</p>
+      </div>
+      <div>
+        <p>Fiscalizado pela Corregedoria-Geral da Justiça de [UF].</p>
+        <p><a href="#">Política de privacidade (LGPD)</a></p>
+      </div>
+    </div>
+    <p class="wrap small muted">© <span data-year></span> Cartório [Nome]. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
