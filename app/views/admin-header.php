@@ -10,9 +10,7 @@ $atual = current_path();
 <meta name="robots" content="noindex, nofollow">
 <title><?= e($titulo) ?> – Painel do cartório</title>
 <link rel="icon" type="image/png" href="/assets/img/brasao.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bitter:wght@600;700&display=swap">
+<link rel="stylesheet" href="/assets/css/fontes.css?v=1">
 <link rel="stylesheet" href="/assets/css/admin.css?v=2">
 </head>
 <body class="adm">

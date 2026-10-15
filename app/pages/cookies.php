@@ -19,10 +19,10 @@
       <h2>O que não usamos</h2>
       <p>Não usamos cookies de publicidade, de redes sociais nem de estatística de visitas. Não rastreamos sua navegação em outros sites.</p>
       <h2>Serviços de terceiros</h2>
-      <p>As fontes tipográficas do site são carregadas do Google Fonts. Para entregar os arquivos, o Google recebe o endereço IP do seu navegador, mas não grava cookies. Os links para mapas e para o WhatsApp só levam a esses serviços se você clicar neles.</p>
+      <p>As páginas do site não carregam nada de outras empresas: as fontes tipográficas e as imagens ficam no próprio site. Os links para mapas e para o WhatsApp só levam a esses serviços se você clicar neles.</p>
       <h2>Dúvidas</h2>
       <p>Fale com o Encarregado pelo tratamento de dados: <a href="mailto:<?= e(cartorio('emails.lgpd')) ?>"><?= e(cartorio('emails.lgpd')) ?></a>. Veja também o <a href="/privacidade">Aviso de privacidade</a>.</p>
-      <p class="atualizado">Última atualização: <?= e(cartorio('politicas_atualizadas_em')) ?>.</p>
+      <p class="atualizado">Última atualização: <?= e(cartorio('cookies_atualizada_em')) ?>.</p>
     </div>
   </div>
 </main>

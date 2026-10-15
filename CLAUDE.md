@@ -54,5 +54,4 @@ E-mails de teste ficam em `storage/logs/mail.log`.
 
 - Confirmar o CNS 09.545-5 no Justiça Aberta do CNJ.
 - Endereço direto de consulta de selos do TJRN (`corregedoria_url` em `app/content/cartorio.php`).
-- Fontes Bitter e Atkinson Hyperlegible ainda vêm do Google Fonts.
 - Foto real para a abertura da página inicial (`foto_abertura` em `app/content/cartorio.php`); sem foto, o fundo fica verde-noturno.

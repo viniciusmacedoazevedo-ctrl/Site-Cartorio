@@ -22,9 +22,9 @@ $paginaTitulo = ($titulo ? "$titulo – " : '') . cartorio('nome_curto');
 <meta name="description" content="<?= e($descricao) ?>">
 <meta name="theme-color" content="#0B5D59">
 <link rel="icon" type="image/png" href="/assets/img/brasao.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bitter:wght@500;600;700&display=swap">
+<link rel="preload" href="/assets/fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/bitter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/fontes.css?v=1">
 <link rel="stylesheet" href="/assets/css/site.css?v=3">
 <script src="/assets/js/js.js"></script>
 <meta property="og:title" content="<?= e($paginaTitulo) ?>">

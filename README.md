@@ -123,7 +123,6 @@ Token contra envio falso (CSRF), campo-armadilha e tempo mínimo contra robôs, 
 
 - Descrições, documentos obrigatórios e gratuidades de cada serviço em `app/content/servicos.php` (conferir com a prática da serventia).
 - Prazo de guarda de 5 anos no Aviso de Privacidade (`app/views/texto-aviso.php`), a confirmar pela notária e pelo DPO.
-- As fontes (Bitter e Atkinson Hyperlegible) são carregadas do Google Fonts, o que está informado na Política de Cookies. Para não depender do Google, baixe os arquivos .woff2 (por exemplo em gwfh.mranftl.com), coloque em `public/assets/fonts/`, troque o `<link>` do Google Fonts em `app/views/header.php` e `admin-header.php` por `@font-face` no CSS e remova o parágrafo "Serviços de terceiros" de `app/pages/cookies.php`.
 - O brasão foi extraído do documento enviado (128 px). Se houver uma versão em alta resolução, substitua `public/assets/img/brasao.png`.
 
 ## Teste local (sem MySQL)
