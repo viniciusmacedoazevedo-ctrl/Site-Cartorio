@@ -25,7 +25,7 @@ $paginaTitulo = ($titulo ? "$titulo – " : '') . cartorio('nome_curto');
 <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/bitter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/fontes.css?v=1">
-<link rel="stylesheet" href="/assets/css/site.css?v=3">
+<link rel="stylesheet" href="/assets/css/site.css?v=4">
 <script src="/assets/js/js.js"></script>
 <meta property="og:title" content="<?= e($paginaTitulo) ?>">
 <meta property="og:description" content="<?= e($descricao) ?>">
@@ -68,3 +68,11 @@ $paginaTitulo = ($titulo ? "$titulo – " : '') . cartorio('nome_curto');
     </nav>
   </div>
 </header>
+<?php if ($titulo !== ''): ?>
+<nav class="trilha" aria-label="Você está em">
+  <ol class="largura">
+    <li><a href="/">Início</a></li>
+    <li aria-current="page"><?= e($titulo) ?></li>
+  </ol>
+</nav>
+<?php endif; ?>
