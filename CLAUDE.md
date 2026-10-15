@@ -15,6 +15,8 @@ Antes de mudar qualquer coisa, leia o `README.md` e a estrutura de `app/`, `publ
 - `app/content/transparencia.php` rubricas da Transparência.
 - `database/schema.sql` (MySQL) e `database/schema.sqlite.sql` (teste local).
 - `storage/` anexos e logs, fora da pasta pública. `app/config.php` não é versionado.
+- `bin/configurar.php` cria o `app/config.php`; `bin/verificar.php [--online]` confere a instalação; `bin/criar-usuario.php` cria usuário do painel.
+- `docs/INSTALACAO.md` passo a passo no servidor; `docs/apache.conf.exemplo` e `docs/nginx.conf.exemplo`.
 
 ## O que o site tem
 

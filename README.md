@@ -21,6 +21,8 @@ bin/        scripts de linha de comando
 
 ## Instalação no servidor
 
+**Guia completo, com Apache ou Nginx e HTTPS: [`docs/INSTALACAO.md`](docs/INSTALACAO.md).** Atalhos: `php bin/configurar.php` cria o `app/config.php` fazendo perguntas, e `php bin/verificar.php --online` confere a instalação. Resumo:
+
 1. **Copiar os arquivos** para o servidor, por exemplo `/var/www/cartorio`. A raiz do site (DocumentRoot) deve apontar para `/var/www/cartorio/public`. Assim `app/` e `storage/` ficam inacessíveis pela internet.
 
 2. **Criar o banco e o usuário do banco**
@@ -50,6 +52,7 @@ bin/        scripts de linha de comando
 
 5. **Servidor web**
    - Apache: o arquivo `public/.htaccess` já faz o redirecionamento para HTTPS, para `www` e para o `index.php` (precisa de `mod_rewrite` e `AllowOverride All`).
+   - Apache: modelo do site em `docs/apache.conf.exemplo`.
    - Nginx: veja `docs/nginx.conf.exemplo`.
    - Ajuste `upload_max_filesize = 6M` e `post_max_size = 8M` no `php.ini`.
 

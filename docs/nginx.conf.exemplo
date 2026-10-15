@@ -1,9 +1,35 @@
-# Exemplo de bloco server para Nginx + PHP-FPM 8.3
+# Exemplo de configuração para Nginx + PHP-FPM 8.3
+# Arquivo sugerido: /etc/nginx/sites-available/cartorio
+#
+# Se o servidor tiver IPv6, acrescente "listen [::]:80;" e "listen [::]:443 ssl http2;"
+# ao lado de cada "listen".
+#
+# ETAPA 1 (antes de ter o certificado): use só o primeiro bloco "server" (porta 80),
+# rode o certbot (veja docs/INSTALACAO.md) e depois ative o arquivo completo.
+
 server {
     listen 80;
     server_name cartoriosjcampestre.com.br www.cartoriosjcampestre.com.br;
+
+    # Validação do Let's Encrypt (emissão e renovação do certificado).
+    location ^~ /.well-known/acme-challenge/ {
+        root /var/www/cartorio/public;
+        default_type text/plain;
+    }
+    location / {
+        return 301 https://www.cartoriosjcampestre.com.br$request_uri;
+    }
+}
+
+# Endereço sem "www" em HTTPS: redireciona para o endereço com "www".
+server {
+    listen 443 ssl http2;
+    server_name cartoriosjcampestre.com.br;
+    ssl_certificate     /etc/letsencrypt/live/www.cartoriosjcampestre.com.br/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/www.cartoriosjcampestre.com.br/privkey.pem;
     return 301 https://www.cartoriosjcampestre.com.br$request_uri;
 }
+
 server {
     listen 443 ssl http2;
     server_name www.cartoriosjcampestre.com.br;
@@ -12,7 +38,10 @@ server {
 
     root /var/www/cartorio/public;      # só a pasta public fica exposta
     index index.php;
-    client_max_body_size 6m;            # anexos de até 5 MB
+    client_max_body_size 8m;            # anexos de até 5 MB (o formulário inteiro pode passar disso)
+
+    location ^~ /.well-known/acme-challenge/ { default_type text/plain; }
+    location ~ /\. { deny all; }        # bloqueia .htaccess e outros arquivos ocultos
 
     location / { try_files $uri /index.php?$query_string; }
     location ~ \.php$ {
@@ -21,5 +50,4 @@ server {
         fastcgi_pass unix:/run/php/php8.3-fpm.sock;
     }
     location ~* \.(css|js|png|svg|woff2)$ { expires 7d; }
-    location ~ /\. { deny all; }
 }

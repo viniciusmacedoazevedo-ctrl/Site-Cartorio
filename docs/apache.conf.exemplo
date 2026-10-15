@@ -1,0 +1,32 @@
+# Exemplo de configuração para Apache 2.4 + PHP 8.3
+# Arquivo sugerido: /etc/apache2/sites-available/cartorio.conf
+#
+# Este é o site em HTTP (porta 80). O certbot --apache cria sozinho a versão
+# HTTPS (cartorio-le-ssl.conf) a partir dele. Os redirecionamentos para HTTPS
+# e para "www" ficam em public/.htaccess.
+
+<VirtualHost *:80>
+    ServerName www.cartoriosjcampestre.com.br
+    ServerAlias cartoriosjcampestre.com.br
+    ServerAdmin contato@cartoriosjcampestre.com.br
+
+    # Só a pasta public fica exposta na internet.
+    DocumentRoot /var/www/cartorio/public
+
+    # Nada fora de public é servido, mesmo por engano.
+    <Directory /var/www/cartorio>
+        Require all denied
+    </Directory>
+
+    <Directory /var/www/cartorio/public>
+        Options -Indexes +FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    # Formulários com anexos de até 5 MB.
+    LimitRequestBody 8388608
+
+    ErrorLog ${APACHE_LOG_DIR}/cartorio-erro.log
+    CustomLog ${APACHE_LOG_DIR}/cartorio-acesso.log combined
+</VirtualHost>
