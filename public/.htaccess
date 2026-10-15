@@ -1,0 +1,18 @@
+# Apache: todas as rotas passam pelo index.php; arquivos reais são servidos direto.
+Options -Indexes
+RewriteEngine On
+# Validação do Let's Encrypt (certbot) precisa responder em HTTP, sem redirecionar.
+RewriteRule ^\.well-known/acme-challenge/ - [L]
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} !^localhost [NC]
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{HTTP_HOST} ^cartoriosjcampestre\.com\.br$ [NC]
+RewriteRule ^ https://www.cartoriosjcampestre.com.br%{REQUEST_URI} [L,R=301]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|png|svg|woff2)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>

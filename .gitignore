@@ -1,0 +1,9 @@
+# Configuração com senhas: nunca versionar
+app/config.php
+
+# Dados gerados em execução
+storage/*.sqlite
+storage/logs/*
+storage/anexos/*
+storage/transparencia/*
+!storage/**/.gitkeep

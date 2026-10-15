@@ -1,0 +1,65 @@
+<?php
+// Dados institucionais exibidos no site. Edite aqui quando algo mudar.
+return [
+    'nome_oficial' => 'Serviço Notarial e Registral de São José do Campestre/RN',
+    'nome_curto'   => 'Cartório de São José do Campestre',
+    'titular'      => 'Eliane Viana de Sousa',
+    'titular_cargo'=> 'Notária e Registradora',
+    'cnpj'         => '08.472.037/0001-24',
+    'cns'          => '09.545-5',   // Código Nacional da Serventia (CNJ) – confirmar no Justiça Aberta
+    'responsavel_tipo' => 'Titular da delegação',
+    'atribuicoes' => [
+        'Tabelionato de Notas',
+        'Tabelionato de Protesto de Títulos',
+        'Registro Civil das Pessoas Naturais',
+        'Registro de Imóveis',
+        'Registro de Títulos e Documentos e Civil das Pessoas Jurídicas',
+    ],
+    'endereco'     => 'Rua Getúlio Vargas, 630, Centro',
+    'cidade'       => 'São José do Campestre/RN',
+    'cep'          => '59275-000',
+    'mapa_url'     => 'https://www.google.com/maps/search/?api=1&query=Rua+Get%C3%BAlio+Vargas+630+S%C3%A3o+Jos%C3%A9+do+Campestre+RN',
+    'telefone'     => '(84) 3294-2524',
+    'telefone_link'=> '+558432942524',
+    'whatsapp'     => '(84) 99620-5574',
+    'whatsapp_link'=> '5584996205574',
+    'horario'      => 'Segunda a sexta, das 8h às 17h',
+    'abre'         => '08:00',
+    'fecha'        => '17:00',
+    'emails' => [
+        'contato'    => 'contato@cartoriosjcampestre.com.br',
+        'notaria'    => 'notaria@cartoriosjcampestre.com.br',
+        'ouvidoria'  => 'ouvidoria@cartoriosjcampestre.com.br',
+        'compliance' => 'compliance@cartoriosjcampestre.com.br',
+        'lgpd'       => 'lgpd@cartoriosjcampestre.com.br',
+    ],
+    'dpo_nome'  => 'Denis Barros de Azevedo',
+    'dpo_email' => 'denis@psgdados.com.br',
+    'etica_telefone' => '(84) 3294-2524',
+    'tabela_custas' => [
+        'arquivo' => '/docs/tabela-de-custas-rn-2026.pdf',
+        'titulo'  => 'Tabela de Custas RN 2026',
+        'detalhe' => 'Anoreg/RN, versão 1.0, publicada em 19/03/2026',
+        'tamanho' => '509 KB',
+    ],
+    'corregedoria_url' => 'https://corregedoria.tjrn.jus.br/index.php/extrajudicial',
+    'centrais' => [
+        ['e-Notariado', 'https://www.e-notariado.org.br/', 'Atos notariais eletrônicos: escrituras e procurações por videoconferência, com assinatura digital.'],
+        ['CENSEC', 'https://censec.org.br/', 'Central Notarial de Serviços Eletrônicos Compartilhados: busca de testamentos, procurações e escrituras.'],
+        ['ONR / SAEC', 'https://www.registradores.onr.org.br/', 'Operador Nacional do Registro de Imóveis: certidões e pedidos de registro de imóveis pela internet.'],
+        ['CRC Nacional', 'https://www.registrocivil.org.br/', 'Central do Registro Civil: certidões de nascimento, casamento e óbito de qualquer cartório do país.'],
+        ['CENPROT', 'https://www.pesquisaprotesto.com.br/', 'Central Nacional de Protesto: consulta gratuita de protestos em todo o país.'],
+    ],
+    'links_uteis' => [
+        ['CNJ – Conselho Nacional de Justiça', 'https://www.cnj.jus.br/'],
+        ['TJRN – Tribunal de Justiça do RN', 'https://www.tjrn.jus.br/'],
+        ['Anoreg/RN', 'https://anoregrn.org.br/'],
+        ['Portal do Cidadão RN', 'https://www.cidadao.rn.gov.br/'],
+        ['Prefeitura de São José do Campestre', 'https://saojosedocampestre.rn.gov.br/'],
+    ],
+    // Foto da abertura da página inicial (opcional). Use uma foto real da serventia,
+    // horizontal (16:9), em public/assets/img/. Ex.: '/assets/img/fachada.jpg'. null = fundo verde.
+    'foto_abertura' => null,
+    'politicas_atualizadas_em' => '14 de outubro de 2026',   // aviso de privacidade e termos de uso
+    'cookies_atualizada_em'    => '15 de outubro de 2026',   // política de cookies
+];
