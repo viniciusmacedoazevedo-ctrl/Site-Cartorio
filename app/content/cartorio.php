@@ -61,6 +61,9 @@ return [
     // Foto da abertura da página inicial (opcional). Use uma foto real da serventia,
     // horizontal (16:9), em public/assets/img/. Ex.: '/assets/img/fachada.jpg'. null = fundo verde.
     'foto_abertura' => null,
+    // Dias sem atendimento além dos feriados nacionais (que o site já conhece):
+    // feriados municipais e estaduais, recessos e pontos facultativos. Formato 'AAAA-MM-DD' => 'nome'.
+    'feriados_extras' => [],
     'politicas_atualizadas_em' => '14 de outubro de 2026',   // aviso de privacidade e termos de uso
     'cookies_atualizada_em'    => '15 de outubro de 2026',   // política de cookies
 ];

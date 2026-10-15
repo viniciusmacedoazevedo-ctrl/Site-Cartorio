@@ -19,8 +19,7 @@ view('header', ['titulo' => '', 'descricao' => null]);
     <?php endif; ?>
     <div class="largura abertura-grade">
       <div class="abertura-texto">
-        <p class="abertura-local"><?= e(cartorio('cidade')) ?></p>
-        <h1>Cartório de São José do Campestre</h1>
+        <h1>Cartório de São José do Campestre/RN</h1>
         <p class="lead">Tabelionato de notas e de protesto, registro civil, registro de imóveis, títulos e documentos e pessoas jurídicas, e certificado digital. Veja o que cada serviço exige antes de vir ao cartório.</p>
         <div class="acoes">
           <a class="botao botao-claro" href="/servicos">Ver serviços e documentos</a>

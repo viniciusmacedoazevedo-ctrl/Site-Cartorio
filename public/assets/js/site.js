@@ -136,6 +136,146 @@
     mostrar();
   }
 
+  // Calendário do agendamento: monta a partir da lista de dias úteis do servidor.
+  // Sábados, domingos e feriados ficam desativados; o <select> continua sendo o campo enviado.
+  var selData = document.querySelector('[data-agendamento] select[name="data_preferida"]');
+  if (selData) {
+    var caixaAg = selData.closest('[data-agendamento]');
+    var feriados = {};
+    try { feriados = JSON.parse(caixaAg.getAttribute('data-feriados') || '{}'); } catch (e) {}
+    var livres = {};
+    var datas = [];
+    Array.prototype.forEach.call(selData.options, function (o) {
+      if (o.value) { livres[o.value] = o.textContent; datas.push(o.value); }
+    });
+    if (datas.length) {
+      var MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+      var SEMANA = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+      var iso = function (d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); };
+      var deIso = function (t) { var p = t.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); };
+      var primeira = deIso(datas[0]);
+      var ultima = deIso(datas[datas.length - 1]);
+      var mesVisto = selData.value ? deIso(selData.value) : primeira;
+      mesVisto = new Date(mesVisto.getFullYear(), mesVisto.getMonth(), 1);
+
+      var label = caixaAg.querySelector('label[for="' + selData.id + '"]');
+      if (label && !label.id) label.id = selData.id + '-rotulo';
+
+      var cal = document.createElement('div');
+      cal.className = 'calendario';
+      cal.setAttribute('role', 'group');
+      if (label) cal.setAttribute('aria-labelledby', label.id);
+      cal.innerHTML =
+        '<div class="calendario-topo">' +
+          '<button type="button" class="calendario-nav" data-mes="-1" aria-label="Mês anterior">‹</button>' +
+          '<p class="calendario-mes" aria-live="polite"></p>' +
+          '<button type="button" class="calendario-nav" data-mes="1" aria-label="Próximo mês">›</button>' +
+        '</div>' +
+        '<table class="calendario-grade" role="grid"><thead><tr>' +
+          ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map(function (l, i) { return '<th scope="col" abbr="' + SEMANA[i] + '">' + l + '</th>'; }).join('') +
+        '</tr></thead><tbody></tbody></table>' +
+        '<p class="calendario-escolha" aria-live="polite"></p>' +
+        '<p class="calendario-legenda"><span><i class="calendario-chip calendario-chip-livre"></i>disponível</span><span><i class="calendario-chip calendario-chip-feriado"></i>feriado</span><span><i class="calendario-chip calendario-chip-fechado"></i>sem atendimento</span></p>';
+      selData.hidden = true;
+      selData.insertAdjacentElement('afterend', cal);
+      var corpo = cal.querySelector('tbody');
+      var titulo = cal.querySelector('.calendario-mes');
+      var escolha = cal.querySelector('.calendario-escolha');
+      var navAnt = cal.querySelector('[data-mes="-1"]');
+      var navProx = cal.querySelector('[data-mes="1"]');
+
+      var mostrarEscolha = function () {
+        if (selData.value && livres[selData.value]) {
+          escolha.innerHTML = 'Data escolhida: <strong></strong> <button type="button" class="botao-texto calendario-limpar">Sem preferência</button>';
+          escolha.querySelector('strong').textContent = livres[selData.value];
+        } else {
+          escolha.textContent = 'Nenhuma data escolhida (sem preferência).';
+        }
+      };
+
+      var desenhar = function (focar) {
+        var nomeMes = MESES[mesVisto.getMonth()];
+        titulo.textContent = nomeMes.charAt(0).toUpperCase() + nomeMes.slice(1) + ' de ' + mesVisto.getFullYear();
+        navAnt.disabled = mesVisto <= new Date(primeira.getFullYear(), primeira.getMonth(), 1);
+        navProx.disabled = mesVisto >= new Date(ultima.getFullYear(), ultima.getMonth(), 1);
+        corpo.innerHTML = '';
+        var d = new Date(mesVisto);
+        d.setDate(1 - d.getDay());
+        var alvoFoco = null;
+        for (var semana = 0; semana < 6; semana++) {
+          var tr = document.createElement('tr');
+          for (var i = 0; i < 7; i++) {
+            var td = document.createElement('td');
+            if (d.getMonth() === mesVisto.getMonth()) {
+              var chave = iso(d);
+              var b = document.createElement('button');
+              b.type = 'button';
+              b.textContent = d.getDate();
+              b.setAttribute('data-data', chave);
+              var nomeDia = SEMANA[d.getDay()] + ', ' + d.getDate() + ' de ' + MESES[d.getMonth()];
+              if (livres[chave]) {
+                b.className = 'calendario-dia';
+                b.setAttribute('aria-label', nomeDia);
+                if (chave === selData.value) { b.setAttribute('aria-pressed', 'true'); b.classList.add('escolhido'); }
+                else b.setAttribute('aria-pressed', 'false');
+                b.tabIndex = -1;
+              } else {
+                b.disabled = true;
+                var motivo = feriados[chave] ? 'feriado: ' + feriados[chave] : (d.getDay() === 0 || d.getDay() === 6) ? 'sem atendimento' : 'indisponível';
+                b.className = 'calendario-dia ' + (feriados[chave] ? 'feriado' : 'fechado');
+                b.setAttribute('aria-label', nomeDia + ', ' + motivo);
+                b.title = motivo.charAt(0).toUpperCase() + motivo.slice(1);
+              }
+              td.appendChild(b);
+            }
+            tr.appendChild(td);
+            d.setDate(d.getDate() + 1);
+          }
+          corpo.appendChild(tr);
+        }
+        var ativos = corpo.querySelectorAll('.calendario-dia:not([disabled])');
+        alvoFoco = corpo.querySelector('.escolhido') || ativos[0];
+        if (alvoFoco) alvoFoco.tabIndex = 0;
+        if (focar && alvoFoco) alvoFoco.focus();
+        mostrarEscolha();
+      };
+
+      cal.addEventListener('click', function (ev) {
+        var nav = ev.target.closest('.calendario-nav');
+        if (nav) { mesVisto.setMonth(mesVisto.getMonth() + (+nav.getAttribute('data-mes'))); desenhar(false); return; }
+        if (ev.target.closest('.calendario-limpar')) { selData.value = ''; desenhar(false); return; }
+        var dia = ev.target.closest('.calendario-dia:not([disabled])');
+        if (dia) { selData.value = dia.getAttribute('data-data'); desenhar(false); corpo.querySelector('.escolhido').focus(); }
+      });
+
+      // Setas movem entre os dias disponíveis; Enter ou espaço escolhe.
+      cal.addEventListener('keydown', function (ev) {
+        var atual = ev.target.closest('.calendario-dia');
+        if (!atual) return;
+        var passos = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }[ev.key];
+        if (!passos) return;
+        ev.preventDefault();
+        var d = deIso(atual.getAttribute('data-data'));
+        for (var n = 0; n < 60; n++) {
+          d.setDate(d.getDate() + (passos > 0 ? 1 : -1) * (n === 0 ? Math.abs(passos) : 1));
+          if (d < primeira || d > ultima) return;
+          if (livres[iso(d)]) break;
+        }
+        if (!livres[iso(d)]) return;
+        if (d.getMonth() !== mesVisto.getMonth() || d.getFullYear() !== mesVisto.getFullYear()) {
+          mesVisto = new Date(d.getFullYear(), d.getMonth(), 1);
+          desenhar(false);
+        }
+        var alvo = corpo.querySelector('[data-data="' + iso(d) + '"]');
+        corpo.querySelectorAll('.calendario-dia').forEach(function (b) { b.tabIndex = -1; });
+        alvo.tabIndex = 0;
+        alvo.focus();
+      });
+
+      desenhar(false);
+    }
+  }
+
   var imprimir = document.querySelector('[data-imprimir]');
   if (imprimir) imprimir.addEventListener('click', function () { window.print(); });
 })();
