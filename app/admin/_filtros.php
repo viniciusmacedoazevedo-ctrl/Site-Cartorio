@@ -33,8 +33,14 @@ function filtros_registros(array $u, array $in): array
         $params[] = $f['ate'] . ' 23:59:59';
     }
     if ($f['busca'] !== '') {
-        $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\%', '\_'], $f['busca']) . '%';
-        $where[] = "(protocolo LIKE ? ESCAPE '\\' OR nome LIKE ? ESCAPE '\\' OR cpf LIKE ? ESCAPE '\\' OR email LIKE ? ESCAPE '\\' OR telefone LIKE ? ESCAPE '\\')";
+        // No PostgreSQL: ILIKE (sem diferenciar maiúsculas, como o MySQL faz) e escape '!',
+        // porque o PDO do PostgreSQL entende '\' como início de texto e perde os parâmetros.
+        $pg = db_driver() === 'pgsql';
+        $esc = $pg ? '!' : '\\';
+        $like_op = $pg ? 'ILIKE' : 'LIKE';
+        $like = '%' . str_replace([$esc, '%', '_'], [$esc . $esc, $esc . '%', $esc . '_'], $f['busca']) . '%';
+        $cond = "$like_op ? ESCAPE '$esc'";
+        $where[] = "(protocolo $cond OR nome $cond OR cpf $cond OR email $cond OR telefone $cond)";
         array_push($params, $like, $like, $like, $like, $like);
     }
     return [$f, implode(' AND ', $where), $params];

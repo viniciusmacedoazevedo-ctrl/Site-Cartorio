@@ -42,7 +42,10 @@ echo "\nPHP\n";
 version_compare(PHP_VERSION, '8.3.0', '>=')
     ? ok('PHP ' . PHP_VERSION)
     : falha('PHP ' . PHP_VERSION . ' (precisa ser 8.3 ou mais novo)');
-foreach (['pdo_mysql' => 'php8.3-mysql', 'mbstring' => 'php8.3-mbstring', 'fileinfo' => 'php8.3-common', 'openssl' => 'php8.3-common'] as $ext => $pacote) {
+$extBanco = is_readable("$raiz/app/config.php") && ((require "$raiz/app/config.php")['db']['driver'] ?? '') === 'pgsql'
+    ? ['pdo_pgsql' => 'php8.3-pgsql']
+    : ['pdo_mysql' => 'php8.3-mysql'];
+foreach ($extBanco + ['mbstring' => 'php8.3-mbstring', 'fileinfo' => 'php8.3-common', 'openssl' => 'php8.3-common'] as $ext => $pacote) {
     extension_loaded($ext) ? ok("extensão $ext") : falha("extensão $ext ausente", "sudo apt install $pacote");
 }
 bytes((string) ini_get('upload_max_filesize')) >= 6 * 1024 ** 2
@@ -71,7 +74,11 @@ $chave = (string) config('app_key');
 (strlen($chave) >= 64 && !str_contains($chave, 'TROQUE')) ? ok('chave secreta (app_key) definida') : falha('app_key ainda é o valor de exemplo', 'php bin/configurar.php');
 config('debug') ? falha('debug ligado (mostra erros para o público)', "troque 'debug' => false") : ok('debug desligado');
 str_starts_with((string) config('base_url'), 'https://') ? ok('base_url ' . config('base_url')) : aviso('base_url não começa com https://');
-config('db.driver') === 'mysql' ? ok('banco MySQL/MariaDB') : falha("banco '" . config('db.driver') . "' (sqlite é só para testes)", "use 'driver' => 'mysql'");
+match (config('db.driver')) {
+    'mysql' => ok('banco MySQL/MariaDB'),
+    'pgsql' => ok('banco PostgreSQL'),
+    default => falha("banco '" . config('db.driver') . "' (sqlite é só para testes)", "use 'driver' => 'mysql' ou 'pgsql'"),
+};
 match (config('mail.transport')) {
     'log' => falha("e-mail em modo 'log' (nada é enviado)", "use 'mail' ou 'smtp'"),
     'smtp' => ok('e-mail por SMTP (' . config('mail.smtp')['host'] . ')'),
@@ -82,13 +89,23 @@ echo "\nBanco de dados\n";
 try {
     db();
     ok('conexão com ' . config('db.database') . ' em ' . config('db.host'));
+    if (config('db.driver') === 'pgsql') {
+        $versao = (int) q_val('SHOW server_version_num');
+        $versao >= 100000
+            ? ok('PostgreSQL ' . q_val('SHOW server_version'))
+            : falha('PostgreSQL ' . q_val('SHOW server_version') . ' (precisa ser 10 ou mais novo)', 'peça ao administrador do servidor para atualizar o PostgreSQL');
+    }
     $esperadas = ['registros', 'anexos', 'usuarios', 'historico', 'contadores', 'limites', 'auditoria', 'transparencia'];
-    $existentes = config('db.driver') === 'sqlite'
-        ? q("SELECT name FROM sqlite_master WHERE type = 'table'")->fetchAll(PDO::FETCH_COLUMN)
-        : q('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
+    $existentes = match (config('db.driver')) {
+        'sqlite' => q("SELECT name FROM sqlite_master WHERE type = 'table'")->fetchAll(PDO::FETCH_COLUMN),
+        'pgsql' => q('SELECT tablename FROM pg_tables WHERE schemaname = current_schema()')->fetchAll(PDO::FETCH_COLUMN),
+        default => q('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN),
+    };
     $faltando = array_diff($esperadas, $existentes);
     $faltando
-        ? falha('tabelas ausentes: ' . implode(', ', $faltando), 'mysql -u root -p ' . config('db.database') . ' < database/schema.sql')
+        ? falha('tabelas ausentes: ' . implode(', ', $faltando), config('db.driver') === 'pgsql'
+            ? 'psql -h ' . config('db.host') . ' -U ' . config('db.username') . ' ' . config('db.database') . ' -f database/schema.pgsql.sql'
+            : 'mysql -u root -p ' . config('db.database') . ' < database/schema.sql')
         : ok('todas as tabelas criadas');
     if (!$faltando) {
         (int) q_val("SELECT COUNT(*) FROM usuarios WHERE perfil = 'admin' AND ativo = 1") > 0

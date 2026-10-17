@@ -16,6 +16,11 @@ function db(): PDO
     if ($c['driver'] === 'sqlite') {
         $pdo = new PDO('sqlite:' . $c['sqlite_path'], null, null, $options);
         $pdo->exec('PRAGMA foreign_keys = ON');
+    } elseif ($c['driver'] === 'pgsql') {
+        $dsn = sprintf('pgsql:host=%s;port=%d;dbname=%s', $c['host'], $c['port'], $c['database']);
+        $pdo = new PDO($dsn, $c['username'], $c['password'], $options);
+        $pdo->exec("SET client_encoding = 'UTF8'");
+        $pdo->exec("SET TIME ZONE 'America/Fortaleza'");
     } else {
         $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4', $c['host'], $c['port'], $c['database']);
         $pdo = new PDO($dsn, $c['username'], $c['password'], $options);
@@ -51,10 +56,10 @@ function q_val(string $sql, array $params = []): mixed
 /** Próximo número da sequência do protocolo (por prefixo e ano), sem colisão. */
 function proximo_numero(string $prefixo, int $ano): int
 {
-    if (db_driver() === 'sqlite') {
+    if (db_driver() === 'sqlite' || db_driver() === 'pgsql') {
         return (int) q_val(
             'INSERT INTO contadores (prefixo, ano, ultimo) VALUES (?, ?, 1)
-             ON CONFLICT(prefixo, ano) DO UPDATE SET ultimo = ultimo + 1 RETURNING ultimo',
+             ON CONFLICT (prefixo, ano) DO UPDATE SET ultimo = contadores.ultimo + 1 RETURNING ultimo',
             [$prefixo, $ano]
         );
     }

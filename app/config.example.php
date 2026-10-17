@@ -14,7 +14,7 @@ return [
     'debug' => false,
 
     'db' => [
-        'driver'   => 'mysql',            // mysql (MySQL/MariaDB) ou sqlite (apenas testes)
+        'driver'   => 'mysql',            // mysql (MySQL/MariaDB), pgsql (PostgreSQL, porta 5432) ou sqlite (apenas testes)
         'host'     => '127.0.0.1',
         'port'     => 3306,
         'database' => 'cartorio_site',
