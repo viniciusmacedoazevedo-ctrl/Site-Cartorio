@@ -28,7 +28,8 @@ function perguntar(string $texto, ?string $padrao = null): string
 function perguntar_senha(string $texto): string
 {
     echo "$texto: ";
-    $tty = stream_isatty(STDIN);
+    // Algumas hospedagens (cPanel) desativam system(); aí a senha aparece na tela, mas funciona.
+    $tty = stream_isatty(STDIN) && function_exists('system');
     if ($tty) {
         system('stty -echo 2>/dev/null');
     }

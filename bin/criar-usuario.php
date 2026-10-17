@@ -21,9 +21,15 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 $senha = getenv('SENHA') ?: null;
 if (!$senha) {
     echo 'Senha (mín. 10 caracteres, letras e números): ';
-    system('stty -echo 2>/dev/null');
+    // Algumas hospedagens (cPanel) desativam system(); aí a senha aparece na tela, mas funciona.
+    $esconder = function_exists('system') && stream_isatty(STDIN);
+    if ($esconder) {
+        system('stty -echo 2>/dev/null');
+    }
     $senha = trim((string) fgets(STDIN));
-    system('stty echo 2>/dev/null');
+    if ($esconder) {
+        system('stty echo 2>/dev/null');
+    }
     echo "\n";
 }
 if ($erro = senha_forte($senha)) {
