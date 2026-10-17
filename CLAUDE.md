@@ -1,7 +1,7 @@
 # CLAUDE.md — Site do Cartório de São José do Campestre/RN
 
 Site institucional do **Serviço Notarial e Registral de São José do Campestre/RN**.
-PHP 8.3 puro (sem framework, sem Composer), MySQL/MariaDB em produção.
+PHP 8.3 puro (sem framework, sem Composer), MySQL/MariaDB ou PostgreSQL em produção.
 Domínio: https://www.cartoriosjcampestre.com.br (servidor próprio do cartório, com PHP 8.3 e MySQL/MariaDB).
 
 Antes de mudar qualquer coisa, leia o `README.md` e a estrutura de `app/`, `public/` e `database/`.
@@ -13,10 +13,10 @@ Antes de mudar qualquer coisa, leia o `README.md` e a estrutura de `app/`, `publ
 - `app/content/cartorio.php` dados da serventia (titular, CNS, contatos, horário, tabela de custas, foto da abertura).
 - `app/content/servicos.php` Carta de Serviços (o `slug` é usado em links: não alterar).
 - `app/content/transparencia.php` rubricas da Transparência.
-- `database/schema.sql` (MySQL) e `database/schema.sqlite.sql` (teste local).
+- `database/schema.sql` (MySQL), `database/schema.pgsql.sql` (PostgreSQL) e `database/schema.sqlite.sql` (teste local). Ao mudar uma tabela, mude os três.
 - `storage/` anexos e logs, fora da pasta pública. `app/config.php` não é versionado.
 - `bin/configurar.php` cria o `app/config.php`; `bin/verificar.php [--online]` confere a instalação; `bin/criar-usuario.php` cria usuário do painel.
-- `docs/INSTALACAO.md` passo a passo no servidor; `docs/apache.conf.exemplo` e `docs/nginx.conf.exemplo`.
+- `docs/INSTALACAO.md` passo a passo no servidor; `docs/CPANEL-POSTGRESQL.md` instalação em cPanel com PostgreSQL; `docs/apache.conf.exemplo` e `docs/nginx.conf.exemplo`.
 
 ## O que o site tem
 

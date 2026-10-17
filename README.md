@@ -2,7 +2,7 @@
 
 Site institucional com formulários de pedido, ouvidoria, LGPD e contato. Cada envio gera um protocolo, vai por e-mail para o cartório e fica registrado no painel administrativo (`/admin`). O cliente pode consultar a situação em `/protocolo`.
 
-Requisitos: PHP 8.3+ (extensões pdo_mysql, mbstring, fileinfo, openssl) e MySQL 8+ ou MariaDB 10.5+. Não há dependências externas (sem Composer).
+Requisitos: PHP 8.3+ (extensões pdo_mysql ou pdo_pgsql, mbstring, fileinfo, openssl) e MySQL 8+, MariaDB 10.5+ ou PostgreSQL 10+ (em cPanel com PostgreSQL, veja `docs/CPANEL-POSTGRESQL.md`). Não há dependências externas (sem Composer).
 
 ## Estrutura
 

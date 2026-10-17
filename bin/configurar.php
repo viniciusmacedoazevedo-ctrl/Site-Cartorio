@@ -69,9 +69,15 @@ $config['app_key'] = bin2hex(random_bytes(32));
 $config['debug'] = false;
 
 // Banco
-echo "\n— Banco de dados (MySQL/MariaDB) —\n";
+echo "\n— Banco de dados —\n";
+echo "mysql = MySQL/MariaDB\n";
+echo "pgsql = PostgreSQL\n";
 $db = &$config['db'];
-$db['driver'] = 'mysql';
+$db['driver'] = escolher('Tipo de banco', ['mysql', 'pgsql'], $db['driver'] === 'pgsql' ? 'pgsql' : 'mysql');
+if ($db['driver'] === 'pgsql') {
+    $db['host'] = $db['host'] === '127.0.0.1' ? 'localhost' : $db['host'];
+    $db['port'] = (int) $db['port'] === 3306 ? 5432 : $db['port'];
+}
 for (;;) {
     $db['host'] = perguntar('Servidor do banco', $db['host']);
     $db['port'] = (int) perguntar('Porta', (string) $db['port']);
@@ -81,13 +87,21 @@ for (;;) {
 
     echo 'Testando a conexão... ';
     try {
-        $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4', $db['host'], $db['port'], $db['database']);
+        if ($db['driver'] === 'pgsql') {
+            $dsn = sprintf('pgsql:host=%s;port=%d;dbname=%s', $db['host'], $db['port'], $db['database']);
+            $sqlTabelas = "SELECT tablename FROM pg_tables WHERE schemaname = current_schema()";
+            $comando = "psql -h {$db['host']} -U {$db['username']} {$db['database']} -f database/schema.pgsql.sql";
+        } else {
+            $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4', $db['host'], $db['port'], $db['database']);
+            $sqlTabelas = 'SHOW TABLES';
+            $comando = "mysql -u root -p {$db['database']} < database/schema.sql";
+        }
         $pdo = new PDO($dsn, $db['username'], $db['password'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        $tabelas = $pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
+        $tabelas = $pdo->query($sqlTabelas)->fetchAll(PDO::FETCH_COLUMN);
         echo "ok.\n";
         if (!in_array('usuarios', $tabelas, true)) {
             echo "Atenção: as tabelas ainda não existem. Rode depois:\n";
-            echo "  mysql -u root -p {$db['database']} < database/schema.sql\n";
+            echo "  $comando\n";
         }
         break;
     } catch (PDOException $ex) {
