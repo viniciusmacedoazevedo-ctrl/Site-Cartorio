@@ -15,7 +15,7 @@ As páginas geram o mesmo HTML da versão PHP. Diferença: as senhas do painel u
 
 ## Versão PHP (anterior)
 
-A versão em PHP 8.3 continua em `app/` e `bin/*.php` e na tag `versao-php` do Git. Requisitos: PHP 8.3+ (extensões pdo_mysql ou pdo_pgsql, mbstring, fileinfo, openssl) e MySQL 8+, MariaDB 10.5+ ou PostgreSQL 10+. Para usá-la, recupere `public/index.php` e o `public/.htaccess` da tag `versao-php`. As instruções abaixo se referem a ela.
+A versão em PHP 8.3 continua em `app/` e `bin/*.php` e no branch `versao-php` do Git. Requisitos: PHP 8.3+ (extensões pdo_mysql ou pdo_pgsql, mbstring, fileinfo, openssl) e MySQL 8+, MariaDB 10.5+ ou PostgreSQL 10+. Para usá-la, recupere `public/index.php` e o `public/.htaccess` do branch `versao-php`. As instruções abaixo se referem a ela.
 ## Estrutura
 
 ```

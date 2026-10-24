@@ -1,7 +1,7 @@
 # CLAUDE.md — Site do Cartório de São José do Campestre/RN
 
 Site institucional do **Serviço Notarial e Registral de São José do Campestre/RN**.
-**Node.js sem dependências externas** (pasta `node/`, banco PostgreSQL) é a versão em uso. A versão em PHP 8.3 (pasta `app/`, tag `versao-php`) fica como referência: qualquer mudança de conteúdo ou regra deve ser feita **na versão Node** (e, se for mantida, também na PHP).
+**Node.js sem dependências externas** (pasta `node/`, banco PostgreSQL) é a versão em uso. A versão em PHP 8.3 (pasta `app/`, branch `versao-php`) fica como referência: qualquer mudança de conteúdo ou regra deve ser feita **na versão Node** (e, se for mantida, também na PHP).
 Domínio: https://www.cartoriosjcampestre.com.br (servidor próprio do cartório, com PHP 8.3 e MySQL/MariaDB).
 
 Antes de mudar qualquer coisa, leia o `README.md` e a estrutura de `app/`, `public/` e `database/`.
