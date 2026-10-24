@@ -1,15 +1,18 @@
-# Apache: todas as rotas passam pelo index.php; arquivos reais são servidos direto.
+# Site do cartório – versão Node.js (gerado por node/bin/htaccess-node.js)
 Options -Indexes
 RewriteEngine On
-# Validação do Let's Encrypt (certbot) precisa responder em HTTP, sem redirecionar.
-RewriteRule ^\.well-known/acme-challenge/ - [L]
+# Validação do certificado (Let's Encrypt / AutoSSL) precisa responder em HTTP, sem redirecionar.
+RewriteRule ^\.well-known/ - [L]
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP_HOST} !^localhost [NC]
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteCond %{HTTP_HOST} ^cartoriosjcampestre\.com\.br$ [NC]
 RewriteRule ^ https://www.cartoriosjcampestre.com.br%{REQUEST_URI} [L,R=301]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ index.php [QSA,L]
+
+# O PHP não é mais usado: nenhum arquivo .php é executado nem baixado.
+<FilesMatch "\.(php|phtml|php8|ini)$">
+  Require all denied
+</FilesMatch>
 
 <IfModule mod_headers.c>
   <FilesMatch "\.(css|js|png|svg|woff2)$">

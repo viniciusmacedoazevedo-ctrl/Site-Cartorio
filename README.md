@@ -2,8 +2,20 @@
 
 Site institucional com formulários de pedido, ouvidoria, LGPD e contato. Cada envio gera um protocolo, vai por e-mail para o cartório e fica registrado no painel administrativo (`/admin`). O cliente pode consultar a situação em `/protocolo`.
 
-Requisitos: PHP 8.3+ (extensões pdo_mysql ou pdo_pgsql, mbstring, fileinfo, openssl) e MySQL 8+, MariaDB 10.5+ ou PostgreSQL 10+ (em cPanel com PostgreSQL, veja `docs/CPANEL-POSTGRESQL.md`). Não há dependências externas (sem Composer).
+## Versão em uso: Node.js
 
+O site roda em **Node.js 20 ou mais novo** (recomendado 22), **sem nenhum pacote externo** (não precisa de `npm install`), com banco **PostgreSQL 10+**. O código fica em `node/`; o visual (`public/`), os anexos (`storage/`) e as tabelas do banco (`database/schema.pgsql.sql`) são os mesmos da versão PHP.
+
+- Instalação no cPanel: **[`docs/CPANEL-NODE.md`](docs/CPANEL-NODE.md)**.
+- Rodar no computador: `node node/bin/configurar.js` e depois `node node/server.js` (porta 3000).
+- Testes automáticos: `npm test` (usa SQLite; com `TESTE_PG="host=... port=... database=... username=... password=..."` usa PostgreSQL).
+- Scripts: `node/bin/configurar.js [--importar-php]`, `criar-usuario.js`, `verificar.js [--online]`, `limpar-antigos.js`, `htaccess-node.js`.
+
+As páginas geram o mesmo HTML da versão PHP. Diferença: as senhas do painel usam `scrypt`; usuários criados na versão PHP precisam redefinir a senha com `node node/bin/criar-usuario.js`.
+
+## Versão PHP (anterior)
+
+A versão em PHP 8.3 continua em `app/` e `bin/*.php` e no branch `versao-php` do Git. Requisitos: PHP 8.3+ (extensões pdo_mysql ou pdo_pgsql, mbstring, fileinfo, openssl) e MySQL 8+, MariaDB 10.5+ ou PostgreSQL 10+. Para usá-la, recupere `public/index.php` e o `public/.htaccess` do branch `versao-php`. As instruções abaixo se referem a ela.
 ## Estrutura
 
 ```

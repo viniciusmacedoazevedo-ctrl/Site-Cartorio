@@ -1,0 +1,15 @@
+{
+  "name": "site-cartorio-sjcampestre",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Site do Cartório de São José do Campestre/RN (versão Node.js, sem dependências externas)",
+  "main": "app.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node app.js",
+    "test": "node node/test/testar.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

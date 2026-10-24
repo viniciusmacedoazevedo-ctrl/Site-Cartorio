@@ -1,0 +1,37 @@
+[
+    {
+        "chave": "emolumentos_publica",
+        "grupo": "Receitas públicas",
+        "rotulo": "Emolumentos (parcela pública)"
+    },
+    {
+        "chave": "fdj",
+        "grupo": "Receitas públicas",
+        "rotulo": "FDJ – Fundo de Desenvolvimento da Justiça"
+    },
+    {
+        "chave": "fcrcpn",
+        "grupo": "Receitas públicas",
+        "rotulo": "FCRCPN – Fundo de Compensação dos Registradores Civis das Pessoas Naturais"
+    },
+    {
+        "chave": "frmp",
+        "grupo": "Receitas públicas",
+        "rotulo": "FRMP – Fundo de Reaparelhamento do Ministério Público"
+    },
+    {
+        "chave": "funaf",
+        "grupo": "Receitas públicas",
+        "rotulo": "FUNAF"
+    },
+    {
+        "chave": "iss",
+        "grupo": "Tributos",
+        "rotulo": "ISS recolhido ao Município"
+    },
+    {
+        "chave": "despesas_publicas",
+        "grupo": "Despesas públicas",
+        "rotulo": "Despesas públicas"
+    }
+]
