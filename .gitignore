@@ -7,3 +7,10 @@ storage/logs/*
 storage/anexos/*
 storage/transparencia/*
 !storage/**/.gitkeep
+
+# Versão Node.js: configuração com senhas
+node/config.json
+node/config.json.bak-*
+# cPanel (Passenger): reinício e log do aplicativo Node
+/tmp/
+/stderr.log
